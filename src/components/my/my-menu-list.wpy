@@ -1,0 +1,153 @@
+<template>
+<!--TODO 自定义高度处理-->
+<view class="my-menu-list">
+  <button
+    wx:for="{{options}}"
+    wx:for-item="option"
+    wx:key="icon"
+    class="my-menu-list-item noborder-btn"
+    open-type="{{option.openType}}"
+    bindtap="{{option.bindtap}}"
+  >
+    <view class="my-menu-list-icon">
+    </view>
+    <view class="my-menu-list-title">{{option.title}}</view>
+    <view class="my-menu-list-next">
+      <image src="../../static/png/my/go.png" />
+    </view>
+    </button>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class MyMenuList extends wepy.component {
+  data = {
+    options: [{
+        title: "在线咨询",
+        icon: "../../static/png/my/zixun.png",
+        openType: "contact"
+      },
+      {
+        title: "电话咨询",
+        icon: "../../static/png/my/dianhua.png",
+        bindtap: "callPhone"
+      },
+      {
+        title: "反馈建议",
+        icon: "../../static/png/my/fankui.png"
+      },
+      {
+        title: "我的报名",
+        icon: "../../static/png/my/baoming.png"
+      },
+      {
+        title: "代金券",
+        icon: "../../static/png/my/youhuijuan.png"
+      },
+      {
+        title: "我的收藏",
+        icon: "../../static/png/my/shoucang.png"
+      },
+      {
+        title: "研值商城",
+        icon: "../../static/png/my/shangcheng.png"
+      },
+
+      {
+        title: "购买记录",
+        icon: "../../static/png/my/jilu.png"
+      },
+
+      {
+        title: "设置",
+        icon: "../../static/png/my/shezhi.png"
+      },
+    ]
+  }
+
+  props = {}
+
+  methods = {
+    clear() {
+      this.options.value = '  '
+      this.$apply()
+      this.options.value = ''
+      this.$apply()
+    },
+    handleZanFieldChange(event) {
+      event.componentId = this.componentId
+      console.info('[zan:field:change]', event)
+      return this.$emit('zanFieldChange', event)
+    },
+    handleZanFieldFocus(event) {
+      event.componentId = this.componentId
+      console.info('[zan:field:focus]', event)
+      return this.$emit('zanFieldFocus', event)
+    },
+    handleZanFieldBlur(event) {
+      event.componentId = this.componentId
+      console.info('[zan:field:blur]', event)
+      return this.$emit('zanFieldBlur', event)
+    },
+    callPhone(event) {
+      wx.makePhoneCall({
+        phoneNumber: '1340000',
+        complete: function (params) {
+
+        } //仅为示例，并非真实的电话号码
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+@import '../../zanui/cell.scss';
+@import '../../styles/base.scss';
+.my-menu-list {
+  background: white;
+  margin-top: 10rpx;
+}
+
+.my-menu-list-next {
+  margin-right: 10rpx;
+  display: flex;
+  image {
+    height: 30rpx;
+    width: 30rpx;
+  }
+}
+
+.my-menu-list-icon {
+  margin-left: 10rpx;
+  display: flex;
+  align-items: center;
+  image {
+    height: 40rpx;
+    width: 40rpx;
+  }
+}
+
+.my-menu-list-item {
+  border-style: none;
+  border-radius: 0;
+  background: white;
+  opacity: 1;
+  padding: 0;
+  text-align: left;
+  display: flex;
+  height: 80rpx;
+  align-items: center;
+  border-bottom: 1px solid #F2F4F6;
+  &::after {
+    border: 0;
+  }
+}
+
+.my-menu-list-title {
+  flex-grow: 1;
+  margin-left: 20rpx;
+  font-size: 14px;
+}
+</style>

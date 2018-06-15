@@ -1,0 +1,195 @@
+<template>
+<view>
+  <view class="home-header">
+    <image src="{{userInfo.avatarUrl}}" />
+    <view>
+      <view class="home-name">
+        <button
+          class="zan-btn zan-btn--primary"
+          open-type="getUserInfo"
+          bindgetuserinfo="bindGetUserInfo"
+          wx:if="{{isLogin === false}}"
+        >{{userInfo.nickName}}</button>
+          <text wx:else>{{userInfo.nickName}}</text>
+      </view>
+      <view class="home-des">{{classInfo}}</view>
+    </view>
+  </view>
+
+  <view class="home-func">
+    <view class="home-func-item">
+      <view class="home-func-item-title">我的证书</view>
+      <view class="home-func-item-number">0</view>
+    </view>
+    <view class="home-func-item">
+      <view class="home-func-item-title">案例发布</view>
+      <view class="home-func-item-number">0</view>
+    </view>
+    <view class="home-func-item">
+      <view class="home-func-item-title">我的研值</view>
+      <view class="home-func-item-number">0</view>
+    </view>
+  </view>
+  <view class="home-invate">
+    <button class="home-invate-joinus">
+      <view class="home-invate-joinus-title"><image mode="aspectFit" src="../static/png/my/class.png" />加入学习</view>
+      <view class="home-invate-joinus-des">多门学科，任你选择</view>
+    </button>
+    <button
+      class="home-invate-joinus"
+      open-type="share"
+    >
+      <view class="home-invate-joinus-title">
+        <image
+          mode="aspectFit"
+          src="../static/png/my/invate.png"
+        />邀请好友</view>
+      <view class="home-invate-joinus-des">成功邀请可赚取研值</view>
+      </button>
+  </view>
+
+  <view>
+    <menulist></menulist>
+  </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MyMenuList from '../components/my/my-menu-list';
+
+export default class Myhome extends wepy.page {
+  data = {
+    isLogin: false,
+    classInfo: "您还没有正在学习的课程",
+    userInfo: {
+      nickName: "点击登录",
+      avatarUrl: '../static/png/my/user.png'
+    }
+  };
+
+  async onLoad() {
+    const user = wx.getStorageSync('user');
+    if (user && user !== '') {
+      this.isLogin = true;
+      this.userInfo = user.userInfo;
+      this.$apply();
+    }
+  };
+
+  methods = {
+    bindGetUserInfo: function (e) {
+      console.log(e)
+      if (e.detail.errMsg === 'getUserInfo:ok') {
+        try {
+          wx.setStorageSync('user', e.detail.userInfo)
+          this.userInfo = e.detail.userInfo;
+          this.isLogin = true;
+          this.$apply();
+        } catch (e) {
+          console.log(e.message)
+        }
+      }
+    }
+  };
+  computed = {
+
+  };
+  components = {
+    menulist: MyMenuList
+  };
+  config = {
+    navigationBarTitleText: '个人中心',
+    navigationBarBackgroundColor: "white",
+  };
+}
+</script>
+
+<style lang="scss">
+@import "../styles/variable";
+@import '../zanui/btn.scss';
+.home-header {
+  display: flex;
+  height: 170rpx;
+  width: 100%;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  image {
+    height: 120rpx;
+    width: 120rpx;
+    margin-left: 50rpx;
+    border-radius: 50%;
+  }
+  view {
+    flex-grow: 1;
+    margin-left: 10rpx;
+    .home-name {
+      width: 200rpx;
+      margin-bottom: 10rpx;
+      button {
+        height: 50rpx;
+        font-size: 16px;
+        line-height: 50rpx;
+      }
+    }
+    .home-des {
+      color: #8C8889;
+      font-size: 12px;
+    }
+  }
+}
+
+.home-func {
+  background-color: white;
+  display: flex;
+  width: 100%;
+  height: 200rpx;
+  justify-content: space-around;
+  .home-func-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .home-func-item-number {
+    color: #D3AA7B;
+    font-size: 14px;
+    margin-top: 10rpx;
+  }
+}
+
+.home-invate {
+  margin-top: 10rpx;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  .home-invate-joinus {
+    margin: 30rpx;
+    border-radius: 50rpx;
+    width: 40%;
+    border: 1px solid #D4AA78;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10rpx;
+    background: white;
+    line-height: inherit !important;
+    .home-invate-joinus-title {
+      color: #D3AA7B;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      image {
+        width: 20px;
+        height: 20px;
+        margin-right: 5rpx;
+      }
+    }
+    .home-invate-joinus-des {
+      font-size: 10px;
+      color: #464646;
+    }
+  }
+}
+</style>

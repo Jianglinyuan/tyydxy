@@ -1,0 +1,180 @@
+<template>
+<!--TODO 自定义高度处理-->
+<view class="card indexform">
+  <view class="card-title">开始学习之旅</view>
+  <view class="container">
+    <view  wx:for="{{options}}" wx:for-item="option" wx:key="name">
+      <view class="zan-cell zan-field {{ option.error ? 'zan-field--error' : '' }} {{ option.mode === 'wrapped' ? 'zan-field--wrapped' : '' }}">
+        <view
+          wx:if="{{ option.title }}"
+          class="zan-cell__hd zan-field__title"
+        >{{ option.title }}</view>
+      <textarea
+        wx:if="{{ option.type === 'textarea' }}"
+        auto-height
+        name="{{ option.name || componentId || '' }}"
+        value="{{ option.value }}"
+        placeholder="{{ option.placeholder }}"
+        class="zan-field__input zan-cell__bd {{ option.right ? 'zan-field__input--right' : '' }}"
+        placeholder-class="zan-field__placeholder"
+        bindinput="handleZanFieldChange"
+        data-component-id="{{ componentId || '' }}"
+      ></textarea>
+        <input
+          wx:else
+          type="{{ option.inputType || 'text' }}"
+          name="{{ option.name || componentId || '' }}"
+          value="{{ option.value }}"
+          placeholder="{{ option.placeholder }}"
+          class="zan-field__input zan-cell__bd {{ option.right ? 'zan-field__input--right' : '' }}"
+          placeholder-class="zan-field__placeholder"
+          data-component-id="{{ componentId || '' }}"
+        />
+    </view>
+  </view>
+</view>
+<view class='submit-btn'>
+  <button class="zan-btn zan-btn--primary submit">提交</button>
+</view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Study extends wepy.component {
+  props = {
+    options: {
+      type: Array,
+      default: [{
+          // error: true,
+          name: 'name',
+          value: '',
+          mode: 'wrapped',
+          title: '姓名:',
+          placeholder: '请输入您的姓名'
+        },
+        {
+          // error: true,
+          name: 'wechat',
+          value: '',
+          mode: 'wrapped',
+          title: '微信号:',
+          placeholder: '请输入您的微信号'
+        },
+        {
+          // error: true,
+          name: 'phone',
+          value: '',
+          mode: 'wrapped',
+          title: '电话号码',
+          placeholder: '请输入您的电话号码'
+        },
+
+      ]
+    },
+    componentId: String
+  }
+  data = {}
+  methods = {
+    clear() {
+      this.options.value = '  '
+      this.$apply()
+      this.options.value = ''
+      this.$apply()
+    },
+    handleZanFieldChange(event) {
+      event.componentId = this.componentId
+
+      console.info('[zan:field:change]', event)
+
+      return this.$emit('zanFieldChange', event)
+    },
+
+    handleZanFieldFocus(event) {
+      event.componentId = this.componentId
+
+      console.info('[zan:field:focus]', event)
+
+      return this.$emit('zanFieldFocus', event)
+    },
+
+    handleZanFieldBlur(event) {
+      event.componentId = this.componentId
+
+      console.info('[zan:field:blur]', event)
+
+      return this.$emit('zanFieldBlur', event)
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+@import '../../zanui/cell.scss';
+@import '../../zanui/btn.scss';
+.zan-field {
+  padding: 7px 15px;
+  color: #333;
+}
+
+.zan-field--wrapped {
+  margin: 0 15px;
+  background-color: #fff;
+  &::after {
+    left: 0;
+    border-width: 1px;
+    border-radius: 4px;
+  }
+}
+
+.zan-field--wrapped+.zan-field--wrapped {
+  margin-top: 10px;
+}
+
+.zan-field--error {
+  color: #f40;
+}
+
+/* 圆角输入框时，将边框也置红 */
+
+.zan-field--wrapped.zan-field--error::after {
+  border-color: #f40;
+}
+
+.zan-field__title {
+  color: #333;
+  min-width: 65px;
+  padding-right: 10px;
+}
+
+.zan-field__input {
+  flex: 1;
+  line-height: 1.6;
+  padding: 4px 0;
+  min-height: 22px;
+  height: auto;
+  font-size: 14px;
+}
+
+.zan-field__placeholder {
+  font-size: 14px;
+}
+
+.zan-field__input--right {
+  text-align: right;
+}
+
+.submit{
+  width: 90%;
+}
+
+.submit-btn{
+  display: flex;
+  justify-content: center;
+}
+
+.indexform{
+  padding-bottom: 70rpx;
+}
+</style>

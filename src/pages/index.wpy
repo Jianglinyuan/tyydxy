@@ -1,0 +1,166 @@
+<style lang="scss">
+.search-bar {
+  height: 80rpx;
+}
+
+.swiper-bar {
+  height: 300rpx;
+}
+</style>
+
+<template>
+<view class="container">
+
+  <view class="search-bar">
+    <searchBar></searchBar>
+  </view>
+
+  <view class="swiper-bar">
+    <swiperBar></swiperBar>
+  </view>
+
+  <view class="menu">
+    <menulist></menulist>
+  </view>
+
+  <view class="course">
+    <courselist></courselist>
+  </view>
+
+  <view class="news">
+    <newslist></newslist>
+  </view>
+
+  <view
+    class="book"
+    style="width: 100%"
+  >
+    <booklist></booklist>
+</view>
+
+<view class="veritfy">
+  <veritfy></veritfy>
+</view>
+
+<view class="study">
+  <study></study>
+</view>
+
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import moduleA from 'module-a'; // aliasFields ignore module example
+import SearchBar from '../components/home/search-bar';
+import SwiperBar from '../components/home/swiper-bar';
+import MenuList from '../components/home/menu-list';
+import CourseList from '../components/home/course-list';
+import BookList from '../components/home/book-list';
+import NewsList from '../components/home/news-list';
+import Veritfy from '../components/home/veritfy-list';
+import Study from '../components/home/study';
+import Toast from 'wepy-com-toast';
+import testMixin from '../mixins/test';
+
+export default class Index extends wepy.page {
+  config = {
+    navigationBarTitleText: '天源运动康复学院',
+    usingComponents: {
+    }
+  };
+  components = {
+    searchBar: SearchBar,
+    swiperBar: SwiperBar,
+    menulist: MenuList,
+    courselist: CourseList,
+    booklist: BookList,
+    newslist: NewsList,
+    veritfy: Veritfy,
+    study: Study
+  };
+
+  mixins = [testMixin];
+
+  data = {};
+
+  computed = {
+    now() {
+      return +new Date();
+    }
+  };
+
+  methods = {
+    plus() {
+      this.mynum++;
+    },
+    toast() {
+      let promise = this.$invoke('toast', 'show', {
+        title: '自定义标题',
+        img: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
+      });
+
+      promise.then(d => {
+        console.log('toast done');
+      });
+    },
+    tap() {
+      console.log('do noting from ' + this.$name);
+    },
+    communicate() {
+      console.log(this.$name + ' tap');
+
+      this.$invoke('counter2', 'minus', 45, 6);
+      this.$invoke('counter1', 'plus', 45, 6);
+
+      this.$broadcast('index-broadcast', 1, 3, 4);
+    },
+    request() {
+      let self = this;
+      let i = 10;
+      let map = [
+        'MA==',
+        'MQo=',
+        'Mg==',
+        'Mw==',
+        'NA==',
+        'NQ==',
+        'Ng==',
+        'Nw==',
+        'OA==',
+        'OQ=='
+      ];
+      while (i--) {
+        wepy.request({
+          url: 'https://www.madcoder.cn/tests/sleep.php?time=1&t=css&c=' +
+            map[i] +
+            '&i=' +
+            i,
+          success: function (d) {
+            self.netrst += d.data + '.';
+            self.$apply();
+          }
+        });
+      }
+    },
+    counterEmit(...args) {
+      let $event = args[args.length - 1];
+      console.log(
+        `${this.$name} receive ${$event.name} from ${$event.source.$name}`
+      );
+    }
+  };
+
+  events = {
+    'index-emit': (...args) => {
+      let $event = args[args.length - 1];
+      console.log(
+        `${this.$name} receive ${$event.name} from ${$event.source.$name}`
+      );
+    }
+  };
+
+  onLoad() {
+  }
+}
+</script>

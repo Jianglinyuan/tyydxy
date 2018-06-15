@@ -1,0 +1,15 @@
+{
+	"description": "A WePY project",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"appid": "wxb7cf2ed8b24a06aa",
+	"projectname": "tianyuan",
+	"miniprogramRoot": "./dist",
+	"condition": {}
+}

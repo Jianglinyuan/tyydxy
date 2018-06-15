@@ -1,0 +1,87 @@
+<template>
+<!--TODO 自定义高度处理-->
+<view class="card">
+  <view class="card-title">证书展示</view>
+  <scroll-view
+    class="veritfy-list"
+    scroll-x="true"
+  >
+    <view
+      class="veritfy-list-item"
+      wx:for="{{veritfys}}"
+      wx:key="id"
+    >
+      <image src="{{item.pic}}" />
+      <view class="veritfy-list-title">{{item.title}}</view>
+</view>
+</scroll-view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class VeritfyList extends wepy.component {
+  data = {
+    veritfys: []
+  };
+
+  async onLoad() {
+    const {
+      data
+    } = await wepy.request('https://siyan.tech/ty-api/getVerify');
+    this.veritfys = data;
+    this.$apply();
+  }
+}
+</script>
+
+<style lang="scss">
+@import '../../styles/variable';
+.card {
+  margin-top: 30rpx;
+  width: 100%;
+  background: white;
+  width: 100%;
+  .card-title {
+    display: block;
+    font-size: 35rpx;
+    padding: 20rpx;
+  }
+}
+
+.veritfy-list {
+  height: 100%;
+  width: 100%;
+  background: white;
+  white-space: nowrap;
+  display: block;
+  overflow: hidden;
+}
+
+.veritfy-list-title {
+  font-weight: bold;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.veritfy-list-item {
+  width: 180rpx;
+  height: 380rpx;
+  display: inline-block; // flex: 1;
+  padding: 20rpx; // flex-direction: column;
+  overflow: hidden;
+  image {
+    width: 180rpx;
+    height: 280rpx; // position: relative;
+    position: absolute;
+  }
+  view {
+    font-size: 22rpx;
+    color: #565656;
+    height: 100rpx;
+    top: 320rpx;
+    width: 180rpx;
+    position: absolute;
+  }
+}
+</style>

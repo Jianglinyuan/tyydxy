@@ -1,0 +1,52 @@
+<style lang="scss">
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  view {
+    height: 30rpx;
+  }
+}
+</style>
+
+<template>
+<view class="container">
+  <view>欢迎您的来电</view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class Phone extends wepy.page {
+  config = {
+    navigationBarTitleText: '天源运动康复学院',
+    usingComponents: {}
+  };
+  components = {
+
+  };
+
+  data = {};
+
+  methods = {};
+
+  events = {
+
+  };
+
+  onShow() {
+    console.log('hhh')
+    wx.makePhoneCall({
+      phoneNumber: '1340000',
+      complete: function (params) {
+
+      } //仅为示例，并非真实的电话号码
+    })
+    wx.switchTab({
+      url: 'index'
+    })
+  }
+}
+</script>
