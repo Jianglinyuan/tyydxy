@@ -1,7 +1,7 @@
 <template>
 <!--TODO 自定义高度处理-->
 <view class="card indexform">
-  <view class="card-title">开始学习之旅</view>
+  <view wx:if={{showTitle}} class="card-title">开始学习之旅</view>
   <view class="container">
     <view  wx:for="{{options}}" wx:for-item="option" wx:key="name">
       <view class="zan-cell zan-field {{ option.error ? 'zan-field--error' : '' }} {{ option.mode === 'wrapped' ? 'zan-field--wrapped' : '' }}">
@@ -40,13 +40,14 @@
 </template>
 
 <script>
-import wepy from 'wepy'
+import wepy from 'wepy';
 
 export default class Study extends wepy.component {
   props = {
     options: {
       type: Array,
-      default: [{
+      default: [
+        {
           // error: true,
           name: 'name',
           value: '',
@@ -69,44 +70,47 @@ export default class Study extends wepy.component {
           mode: 'wrapped',
           title: '电话号码',
           placeholder: '请输入您的电话号码'
-        },
-
+        }
       ]
     },
-    componentId: String
-  }
-  data = {}
+    componentId: String,
+    showTitle: { type: Boolean, default: true }
+  };
+  onLoad = () => {
+    console.log(this)
+  };
+  data = {};
   methods = {
     clear() {
-      this.options.value = '  '
-      this.$apply()
-      this.options.value = ''
-      this.$apply()
+      this.options.value = '  ';
+      this.$apply();
+      this.options.value = '';
+      this.$apply();
     },
     handleZanFieldChange(event) {
-      event.componentId = this.componentId
+      event.componentId = this.componentId;
 
-      console.info('[zan:field:change]', event)
+      console.info('[zan:field:change]', event);
 
-      return this.$emit('zanFieldChange', event)
+      return this.$emit('zanFieldChange', event);
     },
 
     handleZanFieldFocus(event) {
-      event.componentId = this.componentId
+      event.componentId = this.componentId;
 
-      console.info('[zan:field:focus]', event)
+      console.info('[zan:field:focus]', event);
 
-      return this.$emit('zanFieldFocus', event)
+      return this.$emit('zanFieldFocus', event);
     },
 
     handleZanFieldBlur(event) {
-      event.componentId = this.componentId
+      event.componentId = this.componentId;
 
-      console.info('[zan:field:blur]', event)
+      console.info('[zan:field:blur]', event);
 
-      return this.$emit('zanFieldBlur', event)
+      return this.$emit('zanFieldBlur', event);
     }
-  }
+  };
 }
 </script>
 
@@ -128,7 +132,7 @@ export default class Study extends wepy.component {
   }
 }
 
-.zan-field--wrapped+.zan-field--wrapped {
+.zan-field--wrapped + .zan-field--wrapped {
   margin-top: 10px;
 }
 
@@ -165,16 +169,16 @@ export default class Study extends wepy.component {
   text-align: right;
 }
 
-.submit{
+.submit {
   width: 90%;
 }
 
-.submit-btn{
+.submit-btn {
   display: flex;
   justify-content: center;
 }
 
-.indexform{
+.indexform {
   padding-bottom: 70rpx;
 }
 </style>

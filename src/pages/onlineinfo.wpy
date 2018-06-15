@@ -1,0 +1,86 @@
+<style lang="scss">
+.swiper-bar {
+  height: 300rpx;
+}
+
+.study {
+  margin-top: 30rpx;
+}
+
+.submit-btn {
+  margin-top: 20rpx;
+}
+</style>
+
+<template>
+<view class="container">
+  <view class="swiper-bar">
+     <swiperBar></swiperBar>
+  </view>
+
+  <view class="study">
+     <study :showTitle.sync="showTitle" :options.sync="options"></study>
+  </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import SwiperBar from '@/components/home/swiper-bar';
+import Study from '@/components/home/study';
+
+export default class Onlineinfo extends wepy.page {
+  config = {
+    navigationBarTitleText: '报名咨询',
+    usingComponents: {}
+  };
+  components = {
+    swiperBar: SwiperBar,
+    study: Study
+  };
+
+  data = {
+    showTitle: false,
+
+    options: [
+      {
+        // error: true,
+        name: 'name',
+        value: '',
+        mode: 'wrapped',
+        title: '姓名:',
+        placeholder: '请输入您的姓名'
+      },
+      {
+        // error: true,
+        name: 'wechat',
+        value: '',
+        mode: 'wrapped',
+        title: '微信号:',
+        placeholder: '请输入您的微信号'
+      },
+      {
+        // error: true,
+        name: 'phone',
+        value: '',
+        mode: 'wrapped',
+        title: '电话号码:',
+        placeholder: '请输入您的电话号码'
+      },
+      {
+        name: 'clas',
+        value: '',
+        mode: 'wrapped',
+        title: '咨询课程:',
+        placeholder: '请输入您咨询的课程'
+      }
+    ]
+  };
+
+  methods = {};
+
+  events = {};
+
+  onShow() {}
+}
+</script>

@@ -1,0 +1,170 @@
+<template>
+  <view class="container">
+    <search @searchValue.user="doSearch"></search>
+    <view wx:if="{{list.length>0}}">
+      <!--矩阵商品列表模块-->
+      <shopGridList :purchasetype.sync="purchasetype" :list.sync="list"></shopGridList>
+      <!--加载更多时动画-->
+      <!--暂无数据显示-->
+      <placeholder :show.sync="is_empty" message="暂无发现数据"></placeholder>
+
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import tip from '@/utils/tip';
+import Searchs from '@/components/search/search';
+import FilterBar from '@/components/search/filter_bar';
+import ShopGridList from '@/components/search/shop_grid_list';
+import Placeholder from '@/components/common/placeholder';
+export default class Search extends wepy.page {
+  config = {
+    navigationBarTitleText: '搜索'
+  };
+  components = {
+    search: Searchs,
+    shopGridList: ShopGridList,
+    placeholder: Placeholder
+  };
+  data = {
+    list: [],
+    showLoading: false,
+    purchasetype: 1,
+    is_empty: false,
+    is_filter: false,
+    //当前页面
+    currentPage: 1,
+    //总页数
+    page_total: 0,
+    keyword: '',
+    keywordhisList: [],
+    cateCode: '',
+    show: true,
+    sort: -1,
+    title: '',
+    skuval: ''
+  };
+  setTitle(title) {
+    wepy.setNavigationBarTitle({
+      title: title
+    });
+  }
+  onLoad(option) {
+    this.list = [];
+    this.skuval = '';
+    this.cateCode = option.cateCode;
+    this.$invoke('search', 'show', '1');
+    this.show = true;
+  }
+  computed = {};
+  async doSearchGoods(keyword, currentPage, size) {
+    let that = this;
+    const json = await api.getGoodsList({
+      query: {
+        page: currentPage || 1,
+        size: size || 10,
+        searchKeyWords: this.keyword,
+        cateCode: this.cateCode || '',
+        sort: this.sort,
+        skuval: this.skuval
+      }
+    });
+    if (json.data.code == 0) {
+      that.list = [...that.list, ...json.data.list];
+      that.page_total = json.data.page_total;
+      if (json.data.page_total == 0) {
+        //暂无数据
+        that.is_empty = true;
+      }
+    } else {
+      tip.error(json.data.msg);
+    }
+    that.showLoading = false;
+    that.$apply();
+    if (keyword.length > 0) {
+      let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
+      let openId = userSpecialInfo.openid;
+      const resultJson = await api.addSearchKeyword({
+        query: {
+          openId: openId,
+          keyword: keyword
+        }
+      });
+    }
+  }
+  methods = {
+    doSearch(val) {
+      this.list = [];
+      this.is_empty = false;
+      //tip.success("搜索：" + val);
+      this.showLoading = true;
+      this.keyword = val;
+      this.doSearchGoods(val);
+      //this.list = bb.result.products;
+      //this.$apply();
+    },
+    onShareAppMessage: function(res) {
+      if (res.from === 'button') {
+        // 来自页面内转发按钮
+        console.log(res.target);
+      }
+      return {
+        title: this.detail.name,
+        path:
+          '/pages/search?cateCode=' + this.cateCode + '&title=' + this.title,
+        success: function(res) {
+          // 转发成功
+        },
+        fail: function(res) {
+          // 转发失败
+        }
+      };
+    }
+  };
+}
+</script>
+
+<style lang="less">
+.history {
+  padding: 20px 27px;
+}
+
+.container {
+  background: white;
+}
+
+.doc {
+  color: #999;
+  font-size: 26rpx;
+}
+.lable {
+  margin-top: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-left: -20rpx;
+  .child {
+    background: #dedede;
+    padding: 10rpx 20rpx;
+    border-radius: 300rpx;
+    margin-left: 20rpx;
+    font-size: 26rpx;
+    margin-top: 5rpx;
+    color: #000;
+  }
+}
+.btn_box {
+  width: 377rpx;
+  margin: 0 auto;
+  padding-top: 88rpx;
+  .button {
+    color: #999;
+  }
+}
+.active {
+  border: 1px solid #f23737;
+  color: #f23737;
+}
+</style>

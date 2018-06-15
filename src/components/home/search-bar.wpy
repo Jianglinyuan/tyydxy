@@ -22,7 +22,7 @@ export default class SearchBar extends wepy.component {
   methods = {
     search() {
       const param = JSON.stringify(this.param);
-      this.$root.$navigate(`/pages/goods/search?param=${param}`);
+      this.$root.$navigate(`/pages/search?param=${param}`);
     }
   };
   onLoad() {}

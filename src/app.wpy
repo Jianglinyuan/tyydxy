@@ -8,7 +8,7 @@ import 'wepy-async-function';
 
 export default class extends wepy.app {
   config = {
-    pages: ['pages/index', 'pages/phone', 'pages/myhome'],
+    pages: ['pages/index', 'pages/phone', 'pages/myhome', 'pages/search', 'pages/onlineinfo'],
     window: {
       backgroundColor: "#FFFFFF",
       navigationBarBackgroundColor: "#FFFFFF",
@@ -36,7 +36,7 @@ export default class extends wepy.app {
         {
           iconPath: "static/png/sign.png",
           selectedIconPath: "static/png/sign_click.png",
-          pagePath: "pages/index",
+          pagePath: "pages/onlineinfo",
           text: "报名咨询"
         },
         {
