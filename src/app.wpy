@@ -8,7 +8,7 @@ import 'wepy-async-function';
 
 export default class extends wepy.app {
   config = {
-    pages: ['pages/index', 'pages/phone', 'pages/myhome', 'pages/search', 'pages/onlineinfo'],
+    pages: ['pages/index', 'pages/phone', 'pages/myhome', 'pages/search', 'pages/onlineinfo' , 'pages/coursedetail'],
     window: {
       backgroundColor: "#FFFFFF",
       navigationBarBackgroundColor: "#FFFFFF",

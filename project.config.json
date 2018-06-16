@@ -1,7 +1,7 @@
 {
 	"description": "A WePY project",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
 		"minified": false,
@@ -11,5 +11,6 @@
 	"appid": "wxb7cf2ed8b24a06aa",
 	"projectname": "tianyuan",
 	"miniprogramRoot": "./dist",
+	"libVersion": "2.0.4",
 	"condition": {}
 }

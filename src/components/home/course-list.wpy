@@ -3,7 +3,7 @@
 <view class="card">
   <text class="card-title">精品课程</text>
   <view class="course-list">
-    <view class="course-list-item">
+    <view class="course-list-item" @tap.stop="goToDatail" >
       <image
         mode="aspectFit"
         src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2097743141,3632240696&fm=27&gp=0.jpg"
@@ -29,7 +29,16 @@
 
 <script>
 import wepy from 'wepy';
-export default class CourseList extends wepy.component {}
+export default class CourseList extends wepy.component {
+
+  methods={
+    goToDatail(){
+       wepy.navigateTo({
+        url: "/pages/coursedetail"
+      })
+    } 
+  }
+}
 </script>
 
 <style lang="scss">
