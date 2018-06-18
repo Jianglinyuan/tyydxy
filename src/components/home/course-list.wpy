@@ -3,27 +3,21 @@
 <view class="card">
   <text class="card-title">精品课程</text>
   <view class="course-list">
-    <view class="course-list-item" @tap.stop="goToDatail" >
+    <view
+      class="course-list-item"
+      @tap.stop="goToDatail"
+      wx:for="{{class}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+    >
       <image
         mode="aspectFit"
-        src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2097743141,3632240696&fm=27&gp=0.jpg"
-      /><text class="course-list-title">腹肌训练</text> <text class="course-list-des">十五天腹肌训练的秘密</text> </view>
-    <view class="course-list-item">
-      <image
-        mode="aspectFit"
-        src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=535380135,2738472243&fm=200&gp=0.jpg"
-      /><text class="course-list-title">身体塑形</text> <text class="course-list-des">十五天腹肌训练的秘密</text>  </view>
-    <view class="course-list-item">
-      <image
-        mode="aspectFit"
-        src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2450486057,55653893&fm=200&gp=0.jpg"
-      /><text class="course-list-title">减肥训练</text> <text class="course-list-des">十五天腹肌训练的秘密</text>  </view>
-    <view class="course-list-item">
-      <image
-        mode="aspectFit"
-        src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=717638726,863065256&fm=27&gp=0.jpg"
-      /><text class="course-list-title">瑜伽训练</text> <text class="course-list-des">十五天腹肌训练的秘密</text>  </view>
+        src="{{item.pic}}"
+      />
+      <text class="course-list-title">{{item.title}}</text>
+      <text class="course-list-des">{{item.des}}</text>
   </view>
+</view>
 </view>
 </template>
 
@@ -31,12 +25,31 @@
 import wepy from 'wepy';
 export default class CourseList extends wepy.component {
 
-  methods={
-    goToDatail(){
-       wepy.navigateTo({
-        url: "/pages/coursedetail"
+  data = {
+    class: []
+  }
+
+  async onLoad() {
+    const {
+      data
+    } = await wepy.request('https://siyan.tech/ty-api/getClass');
+    console.log(data)
+    this.class = data;
+    this.$apply();
+  }
+
+  methods = {
+    goToDatail(e) {
+      const {
+        currentTarget: {
+          dataset
+        }
+      } = e;
+      const id = dataset.id;
+      wepy.navigateTo({
+        url: "/pages/coursedetail?id=" + id
       })
-    } 
+    }
   }
 }
 </script>
@@ -61,7 +74,7 @@ export default class CourseList extends wepy.component {
   background: white;
 }
 
-.course-list-title{
+.course-list-title {
   font-weight: bold;
 }
 

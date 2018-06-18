@@ -3,153 +3,152 @@ import {
 } from '@/utils/wxRequest';
 
 let env = "-test" //-dev 或者 -test
-const apiMall = 'https://sujiefs.com/'
-// const apiMall = 'http://localhost:8080/'
+const apiTy = 'https://siyan.tech/ty-api'
 
 /**
  * 获取发现好商品接口
  * @param  {[type]} params [description]
  * @return {[type]}        [description]
  */
-const getDiscoverList = (params) => wxRequest(params, apiMall + '/goods/list?cateidOne=1&cateidTwo=0&price=0&sales=2');
+const getDiscoverList = (params) => wxRequest(params, apiTy + '/goods/list?cateidOne=1&cateidTwo=0&price=0&sales=2');
 
 //微信的jscode换取sessionKey
-const wxJsCode2Session = (params) => wxRequest(params, apiMall + "/api/wechat/jscode2session");
-const user2session = (params) => wxRequest(params, apiMall + "/api/wechat/user2session?jsoncallback=?");
+const wxJsCode2Session = (params) => wxRequest(params, apiTy + "/api/wechat/jscode2session");
+const user2session = (params) => wxRequest(params, apiTy + "/api/wechat/user2session?jsoncallback=?");
 
 //商品接口---begin
 //首页发现商品接口
-const hostGoodsList = (params) => wxRequest(params, apiMall + '/api/home/hostGoodsList');
-const getHomeDisvocerList = (params) => wxRequest(params, apiMall + '/api/mall/discoverList');
+const hostGoodsList = (params) => wxRequest(params, apiTy + '/api/home/hostGoodsList');
+const getHomeDisvocerList = (params) => wxRequest(params, apiTy + '/api/mall/discoverList');
 //查询商品列表
-const getGoodsList = (params) => wxRequest(params, apiMall + '/api/mall/searchGoodsList');
+const getGoodsList = (params) => wxRequest(params, apiTy + '/api/mall/searchGoodsList');
 
-//查询商品详情信息
-const goodsDetail = (params) => wxRequest(params, apiMall + '/api/mall/goods');
+//查询课程信息
+const classDetail = (params) => wxRequest(params, apiTy + '/getClass');
 //商品加入购物车
-const addCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/add');
+const addCart = (params) => wxRequest(params, apiTy + '/api/mall/goodsCart/add');
 //用户的购物车商品列表
-const cartList = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/list');
+const cartList = (params) => wxRequest(params, apiTy + '/api/mall/goodsCart/list');
 //购物车的商品选中状态
-const cartCheck = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/check');
+const cartCheck = (params) => wxRequest(params, apiTy + '/api/mall/goodsCart/check');
 //购物车的商品选中状态(全选)
-const cartCheckAll = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/checkAll');
+const cartCheckAll = (params) => wxRequest(params, apiTy + '/api/mall/goodsCart/checkAll');
 //购物车的商品删除
-const cartDel = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/delete');
+const cartDel = (params) => wxRequest(params, apiTy + '/api/mall/goodsCart/delete');
 //购物车的商品数量更新
-const cartUpdateNum = (params) => wxRequest(params, apiMall + '/api/mall/goodsCart/updateNum');
+const cartUpdateNum = (params) => wxRequest(params, apiTy + '/api/mall/goodsCart/updateNum');
 //直接购买商品
-const preOrder = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/commitData');
+const preOrder = (params) => wxRequest(params, apiTy + '/api/mall/goodsOrder/commitData');
 
 //支付前生成订单
-const saveByCart = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/saveByCart');
+const saveByCart = (params) => wxRequest(params, apiTy + '/api/mall/goodsOrder/saveByCart');
 
 //支付统一下单
-const toPay = (params) => wxRequest(params, apiMall + '/wepay/toPay');
+const toPay = (params) => wxRequest(params, apiTy + '/wepay/toPay');
 
 //商品收藏
-const goodsFavorite = (params) => wxRequest(params, apiMall + '/api/mall/goodsFavorite/add');
+const goodsFavorite = (params) => wxRequest(params, apiTy + '/user/goodsFavorite');
 
 //商品收藏删除
-const goodsUnFavorite = (params) => wxRequest(params, apiMall + '/api/mall/goodsFavorite/delete');
+const goodsUnFavorite = (params) => wxRequest(params, apiTy + '/user/goodsFavoriteDelete');
 
 //商品是否已收藏
-const goodsIsFavorite = (params) => wxRequest(params, apiMall + '/api/mall/goodsFavorite/goodsIsFavorite');
+const goodsIsFavorite = (params) => wxRequest(params, apiTy + '/user/goodsIsFavorite');
 
 //商品接口---end
 
 //用户相关信息--begin
 //用户的当天签到信息
-const userSginInfo = (params) => wxRequest(params, apiMall + '/api/userSign/signInfo');
-const doSign = (params) => wxRequest(params, apiMall + '/api/userSign/doSign');
+const userSginInfo = (params) => wxRequest(params, apiTy + '/api/userSign/signInfo');
+const doSign = (params) => wxRequest(params, apiTy + '/api/userSign/doSign');
 //获取最近七天签到情况
-const getSignDate = (params) => wxRequest(params, apiMall + '/api/userSign/getSignDate');
+const getSignDate = (params) => wxRequest(params, apiTy + '/api/userSign/getSignDate');
 
 //用户积分信息
-const pointInfo = (params) => wxRequest(params, apiMall + '/api/userPoint/pointInfo');
+const pointInfo = (params) => wxRequest(params, apiTy + '/api/userPoint/pointInfo');
 
 //用户足迹信息
-const browseInfo = (params) => wxRequest(params, apiMall + '/api/userBrowse/browseInfo');
+const browseInfo = (params) => wxRequest(params, apiTy + '/api/userBrowse/browseInfo');
 //添加用户足迹
-const addBrowser = (params) => wxRequest(params, apiMall + '/api/userBrowse/add');
+const addBrowser = (params) => wxRequest(params, apiTy + '/api/userBrowse/add');
 //添加用户足迹
-const delUserBrowser = (params) => wxRequest(params, apiMall + '/api/userBrowse/delete');
+const delUserBrowser = (params) => wxRequest(params, apiTy + '/api/userBrowse/delete');
 
 //用户收藏的商品
-const favoriteInfo = (params) => wxRequest(params, apiMall + '/api/goodsFavorite/favoriteInfo');
+const favoriteInfo = (params) => wxRequest(params, apiTy + '/api/goodsFavorite/favoriteInfo');
 
 //用户消息
-const messageInfo = (params) => wxRequest(params, apiMall + '/api/systemMessage/messageInfo');
+const messageInfo = (params) => wxRequest(params, apiTy + '/api/systemMessage/messageInfo');
 
 //用户手机绑定
-const registerUser = (params) => wxRequest(params, apiMall + '/api/userCenter/register');
+const registerUser = (params) => wxRequest(params, apiTy + '/api/userCenter/register');
 //发送短信
-const sendRandCode = (params) => wxRequest(params, apiMall + '/api/sms/send');
+const sendRandCode = (params) => wxRequest(params, apiTy + '/api/sms/send');
 
 //用户是否绑定手机号
-const getUserInfo = (params) => wxRequest(params, apiMall + '/api/userCenter/getUserInfo');
+const getUserInfo = (params) => wxRequest(params, apiTy + '/api/userCenter/getUserInfo');
 
 //用户收货地址
-const getUserAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/list');
+const getUserAddress = (params) => wxRequest(params, apiTy + '/api/receiverInfo/list');
 
 //保存用户收货地址
-const saveAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/saveOrUpdate');
+const saveAddress = (params) => wxRequest(params, apiTy + '/api/receiverInfo/saveOrUpdate');
 
 //用户收货地址根据id查询
-const receiverInfoById = (params) => wxRequest(params, apiMall + '/api/receiverInfo/receiverInfoById');
+const receiverInfoById = (params) => wxRequest(params, apiTy + '/api/receiverInfo/receiverInfoById');
 
 //根据Id删除收货地址
-const delUserAddress = (params) => wxRequest(params, apiMall + '/api/receiverInfo/operation');
+const delUserAddress = (params) => wxRequest(params, apiTy + '/api/receiverInfo/operation');
 
 //查询关键字保存
-const addSearchKeyword = (params) => wxRequest(params, apiMall + '/api/searchkeyword/add');
+const addSearchKeyword = (params) => wxRequest(params, apiTy + '/api/searchkeyword/add');
 //查询关键字列表
-const searchKeywordList = (params) => wxRequest(params, apiMall + '/api/searchkeyword/list');
+const searchKeywordList = (params) => wxRequest(params, apiTy + '/api/searchkeyword/list');
 //查询关键字清除
-const clearSearchKeyword = (params) => wxRequest(params, apiMall + '/api/searchkeyword/clear');
+const clearSearchKeyword = (params) => wxRequest(params, apiTy + '/api/searchkeyword/clear');
 
 //查询我的订单
-const getMyOrderList = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getMyOrderList');
+const getMyOrderList = (params) => wxRequest(params, apiTy + '/api/mall/goodsOrder/getMyOrderList');
 
 //查询我的订单数量
-const getMyOrderSize = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getMyOrderSize');
+const getMyOrderSize = (params) => wxRequest(params, apiTy + '/api/mall/goodsOrder/getMyOrderSize');
 
 //根据订单号查询详情
-const getOrderInfo = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getOrderDetail');
+const getOrderInfo = (params) => wxRequest(params, apiTy + '/api/mall/goodsOrder/getOrderDetail');
 
 //根据订单号查询详情
-const getPayOrderDetail = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/getPayOrderDetail');
+const getPayOrderDetail = (params) => wxRequest(params, apiTy + '/api/mall/goodsOrder/getPayOrderDetail');
 
 //根据订单号查询详情
-const editOrderInfo = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/opt');
+const editOrderInfo = (params) => wxRequest(params, apiTy + '/api/mall/goodsOrder/opt');
 
 //根据订单号查询物流
-const orderExpressInfo = (params) => wxRequest(params, apiMall + '/api/orderExpress/orderExpressInfo');
+const orderExpressInfo = (params) => wxRequest(params, apiTy + '/api/orderExpress/orderExpressInfo');
 
 //查询用户的已订购产品
-const goodsUserOrderList = (params) => wxRequest(params, apiMall + '/api/mall/goodsOrder/goodsUserOrderList');
+const goodsUserOrderList = (params) => wxRequest(params, apiTy + '/api/mall/goodsOrder/goodsUserOrderList');
 
 //退货操作
-const refundApply = (params) => wxRequest(params, apiMall + '/api/mall/refund/saveRefundApply');
+const refundApply = (params) => wxRequest(params, apiTy + '/api/mall/refund/saveRefundApply');
 
 //用户相关信息--end
 
 //商品分类--begin
 //一级分类
-const rootCtegoryList = (params) => wxRequest(params, apiMall + '/api/mall/rootCtegoryList');
+const rootCtegoryList = (params) => wxRequest(params, apiTy + '/api/mall/rootCtegoryList');
 //二级三级分类
-const childGoodsCatetoryList = (params) => wxRequest(params, apiMall + '/api/mall/childGoodsCatetoryList');
+const childGoodsCatetoryList = (params) => wxRequest(params, apiTy + '/api/mall/childGoodsCatetoryList');
 //商品分类--end
 
 //查询广告列表
-const getAdList = (params) => wxRequest(params, apiMall + '/api/adverts/list');
+const getAdList = (params) => wxRequest(params, apiTy + '/api/adverts/list');
 
 export default {
   hostGoodsList,
   getDiscoverList,
   getHomeDisvocerList,
   getGoodsList,
-  goodsDetail,
+  classDetail,
   wxJsCode2Session,
   user2session,
   userSginInfo,

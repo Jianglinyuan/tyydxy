@@ -19,15 +19,15 @@
   <view class="home-func">
     <view class="home-func-item">
       <view class="home-func-item-title">我的证书</view>
-      <view class="home-func-item-number">0</view>
+      <view class="home-func-item-number">{{userInfo.zhengshu || 0}}</view>
     </view>
     <view class="home-func-item">
       <view class="home-func-item-title">案例发布</view>
-      <view class="home-func-item-number">0</view>
+      <view class="home-func-item-number">{{userInfo.anli || 0}}</view>
     </view>
     <view class="home-func-item">
       <view class="home-func-item-title">我的研值</view>
-      <view class="home-func-item-number">0</view>
+      <view class="home-func-item-number">{{userInfo.yanzhi || 0}}</view>
     </view>
   </view>
   <view class="home-invate">
@@ -64,28 +64,56 @@ export default class Myhome extends wepy.page {
     classInfo: "您还没有正在学习的课程",
     userInfo: {
       nickName: "点击登录",
-      avatarUrl: '../static/png/my/user.png'
+      avatarUrl: '../static/png/my/user.png',
+      yanzhi: 0,
+      anli: 0,
+      zhengshu: 0
     }
   };
 
-  async onLoad() {
+  async onLoad() {};
+
+  onShow() {
     const user = wx.getStorageSync('user');
     if (user && user !== '') {
-      this.isLogin = true;
-      this.userInfo = user.userInfo;
-      this.$apply();
+      const userSecretInfo = wx.getStorageSync('userSecretInfo');
+      const openID = userSecretInfo.openid;
+      wx.request({
+        url: 'https://siyan.tech/ty-api/getUser',
+        data: {
+          openID
+        },
+        success: (res) => {
+          this.isLogin = true;
+          this.userInfo = res.data;
+          this.$apply();
+        }
+      })
     }
-  };
+    console.log('进入onShow啦');
+  }
 
   methods = {
     bindGetUserInfo: function (e) {
-      console.log(e)
+      const that = this;
       if (e.detail.errMsg === 'getUserInfo:ok') {
         try {
-          wx.setStorageSync('user', e.detail.userInfo)
-          this.userInfo = e.detail.userInfo;
-          this.isLogin = true;
-          this.$apply();
+          wx.setStorageSync('user', e.detail.userInfo);
+          const userSecretInfo = wx.getStorageSync('userSecretInfo');
+          const openID = userSecretInfo.openid;
+          wx.request({
+            url: 'https://siyan.tech/ty-api/login',
+            data: {
+              openID,
+              ...e.detail.userInfo
+            },
+            success: (res) => {
+              that.userInfo = res.data;
+              that.isLogin = true;
+              that.$apply();
+            }
+          })
+
         } catch (e) {
           console.log(e.message)
         }

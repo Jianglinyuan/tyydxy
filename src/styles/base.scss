@@ -278,3 +278,18 @@ button.pain-btn[open-type="share"]::after {
 button[class="noborder-btn"]::after {
   border: 0;
 } 
+
+.noborderbtn{
+  border-style: none;
+  border-radius: 0;
+  background: white;
+  opacity: 1;
+  padding: 0;
+  text-align: inherit;
+  line-height: inherit;
+  font-size: inherit;
+  height: inherit;
+  &::after {
+    border: 0;
+  }
+}
