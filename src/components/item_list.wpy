@@ -1,0 +1,142 @@
+<template>
+    <view wx:for="{{renderData}}" wx:key="{{id}}" class="item-list-wrapper">
+        <view class="item-list-pic">
+            <image src="{{item.pic}}" mode="scaleToFill" />
+        </view>
+        <view class="item-list-infoWrapper">
+            <view class="item-list-title">{{item.title}}</view>
+            <view class="item-list-intro">
+                <view class="item-list-author">{{item.author}}</view>
+                <view class="item-list-time">{{item.time}}</view>
+            </view>
+        </view>
+    </view>
+</template>
+<script>
+import wepy from 'wepy';
+import tip from '@/utils/tip';
+import api from '@/api/api';
+import { SYSTEM_INFO, USER_SPECICAL_INFO } from '@/utils/constant';
+
+export default class Itemlist extends wepy.component {
+  props = {
+    renderData: {
+      type: Array,
+      default: [
+        {
+          id: 1,
+          title: '北汽与麦格纳合资建厂，开发高端智能电动汽车',
+          time: '2018-06-19 12:48',
+          author: '天源运动健身学院',
+          pic:
+            'https://pic.36krcnd.com/201806/19004540/1gqclywtdpdqjrnv!heading'
+        },
+        {
+          id: 2,
+          title: '走，到广告人最集中的地方打广告去 | 科技公司在戛纳①',
+          time: '2018-06-20 12:48',
+          author: '天源运动健身学院',
+          pic:
+            'https://pic.36krcnd.com/201806/19004540/1gqclywtdpdqjrnv!heading'
+        },
+        {
+          id: 3,
+          title: 'R&D报告：耗时又耗钱的研发部门，即将被这些技术改变',
+          time: '2018-06-20 12:48',
+          author: '天源运动健身学院',
+          pic:
+            'https://pic.36krcnd.com/201806/10043500/egd0t8guq8uco3rw!heading'
+        },
+        {
+          id: 4,
+          title: '走，到广告人最集中的地方打广告去 | 科技公司在戛纳①',
+          time: '2018-06-20 12:48',
+          author: '天源运动健身学院',
+          pic:
+            'https://pic.36krcnd.com/201806/19040132/c9kifx09a8jf77x7!heading'
+        },
+        {
+          id: 5,
+          title: '走，到广告人最集中的地方打广告去 | 科技公司在戛纳①',
+          time: '2018-06-20 12:48',
+          author: '天源运动健身学院',
+          pic:
+            'https://pic.36krcnd.com/201806/19040132/c9kifx09a8jf77x7!heading'
+        },
+        {
+          id: 6,
+          title: '走，到广告人最集中的地方打广告去 | 科技公司在戛纳①',
+          time: '2018-06-20 12:48',
+          author: '天源运动健身学院',
+          pic:
+            'https://pic.36krcnd.com/201806/19040132/c9kifx09a8jf77x7!heading'
+        },
+        {
+          id: 7,
+          title: '走，到广告人最集中的地方打广告去 | 科技公司在戛纳①',
+          time: '2018-06-20 12:48',
+          author: '天源运动健身学院',
+          pic:
+            'https://pic.36krcnd.com/201806/19040132/c9kifx09a8jf77x7!heading'
+        }
+      ]
+    }
+  };
+
+  methods = {};
+}
+</script>
+<style lang="scss">
+.container {
+  background: white;
+
+  .item-list-wrapper {
+    display: flex;
+    height: 200rpx;
+    align-items: center;
+    border-bottom: 1px solid #e6e8eb;
+
+    .item-list-pic {
+      height: 150rpx;
+      width: 250rpx;
+      position: relative;
+      margin-left: 15rpx;
+
+      image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .item-list-infoWrapper {
+      flex: 1;
+      margin-left: 15rpx;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      .item-list-title {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: #3d464d;
+      }
+
+      .item-list-intro {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .item-list-author {
+          font-size: 20rpx;
+        }
+
+        .item-list-time {
+          font-size: 20rpx;
+          margin-right: 15rpx;
+        }
+      }
+    }
+  }
+}
+</style>

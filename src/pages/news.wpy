@@ -1,0 +1,26 @@
+<style lang="scss">
+
+</style>
+
+<template>
+<view class="container">
+  <itemlist></itemlist>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Itemlist from '../components/item_list';
+
+export default class News extends wepy.page {
+  config = {
+    navigationBarTitleText: '新闻列表',
+    usingComponents: {}
+  };
+  components = {
+    itemlist: Itemlist,
+  };
+
+  
+}
+</script>

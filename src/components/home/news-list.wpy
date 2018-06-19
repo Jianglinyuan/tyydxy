@@ -3,7 +3,7 @@
 <view class="card">
   <view class="card-title">学员最新动态</view>
   <view class="news-list">
-    <view class="news-list-item"  wx:for="{{news}}" wx:key="id">
+    <view class="news-list-item" wx:for="{{news}}" wx:key="id">
       <image src="{{item.price}}" />
       <view class="news-list-title">{{item.title}}</view>
     </view>

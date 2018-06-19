@@ -12,42 +12,52 @@ import 'wepy-async-function';
 
 export default class extends wepy.app {
   config = {
-    pages: ['pages/index', 'pages/phone', 'pages/myhome', 'pages/search', 'pages/onlineinfo' , 'pages/coursedetail', 'pages/classs'],
+    pages: [
+      'pages/index',
+      'pages/phone',
+      'pages/myhome',
+      'pages/search',
+      'pages/onlineinfo',
+      'pages/coursedetail',
+      'pages/classs',
+      'pages/news'
+    ],
     window: {
-      backgroundColor: "#FFFFFF",
-      navigationBarBackgroundColor: "#FFFFFF",
-      navigationBarTextStyle: "black",
-      backgroundColorTop: "#FFFFFF",
-      backgroundColorBottom: "#FFFFFF"
+      backgroundColor: '#FFFFFF',
+      navigationBarBackgroundColor: '#FFFFFF',
+      navigationBarTextStyle: 'black',
+      backgroundColorTop: '#FFFFFF',
+      backgroundColorBottom: '#FFFFFF'
     },
     tabBar: {
-      color: "#4D4D4D",
-      selectedColor: "#D4AA78",
-      borderStyle: "#FFFFFF",
-      backgroundColor: "#FFFFFF",
-      list: [{
-          iconPath: "static/png/home.png",
-          selectedIconPath: "static/png/home_click.png",
-          pagePath: "pages/index",
-          text: "首页"
+      color: '#4D4D4D',
+      selectedColor: '#D4AA78',
+      borderStyle: '#FFFFFF',
+      backgroundColor: '#FFFFFF',
+      list: [
+        {
+          iconPath: 'static/png/home.png',
+          selectedIconPath: 'static/png/home_click.png',
+          pagePath: 'pages/index',
+          text: '首页'
         },
         {
-          iconPath: "static/png/phone.png",
-          selectedIconPath: "static/png/phone_click.png",
-          pagePath: "pages/phone",
-          text: "电话咨询"
+          iconPath: 'static/png/phone.png',
+          selectedIconPath: 'static/png/phone_click.png',
+          pagePath: 'pages/phone',
+          text: '电话咨询'
         },
         {
-          iconPath: "static/png/sign.png",
-          selectedIconPath: "static/png/sign_click.png",
-          pagePath: "pages/onlineinfo",
-          text: "报名咨询"
+          iconPath: 'static/png/sign.png',
+          selectedIconPath: 'static/png/sign_click.png',
+          pagePath: 'pages/onlineinfo',
+          text: '报名咨询'
         },
         {
-          iconPath: "static/png/my.png",
-          selectedIconPath: "static/png/my_click.png",
-          pagePath: "pages/myhome",
-          text: "我的"
+          iconPath: 'static/png/my.png',
+          selectedIconPath: 'static/png/my_click.png',
+          pagePath: 'pages/myhome',
+          text: '我的'
         }
       ]
     }
@@ -66,19 +76,18 @@ export default class extends wepy.app {
   onLaunch() {
     this.testAsync();
     wx.login({
-      success: function (res) {
+      success: function(res) {
         if (res.code) {
-           wx.request({
+          wx.request({
             url: 'https://siyan.tech/ty-api/login',
             data: {
-              code: res.code,
+              code: res.code
             },
-            success: (res) => console.log(
-              wx.setStorageSync('userSecretInfo', res.data) 
-            )
-          })
+            success: res =>
+              console.log(wx.setStorageSync('userSecretInfo', res.data))
+          });
         } else {
-          console.log('登录失败！' + res.errMsg)
+          console.log('登录失败！' + res.errMsg);
         }
       }
     });
