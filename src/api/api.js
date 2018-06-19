@@ -143,6 +143,10 @@ const childGoodsCatetoryList = (params) => wxRequest(params, apiTy + '/api/mall/
 //查询广告列表
 const getAdList = (params) => wxRequest(params, apiTy + '/api/adverts/list');
 
+
+// 查询新闻列表 
+const getNewsList = (params) => wxRequest(params, apiTy + '/getNews');
+
 export default {
   hostGoodsList,
   getDiscoverList,
@@ -193,5 +197,6 @@ export default {
   getMyOrderSize,
   getPayOrderDetail,
   getAdList,
-  getSignDate
+  getSignDate,
+  getNewsList
 }

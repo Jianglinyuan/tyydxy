@@ -20,7 +20,8 @@ export default class extends wepy.app {
       'pages/onlineinfo',
       'pages/coursedetail',
       'pages/classs',
-      'pages/news'
+      'pages/news',
+      'pages/newsdetail'
     ],
     window: {
       backgroundColor: '#FFFFFF',

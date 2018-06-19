@@ -1,12 +1,12 @@
 <template>
-    <view wx:for="{{renderData}}" wx:key="{{id}}" class="item-list-wrapper">
+    <view wx:for="{{renderData}}" @tap.stop="goToDetail" wx:key="{{id}}" data-id="{{item.id}}" class="item-list-wrapper">
         <view class="item-list-pic">
             <image src="{{item.pic}}" mode="scaleToFill" />
         </view>
         <view class="item-list-infoWrapper">
             <view class="item-list-title">{{item.title}}</view>
             <view class="item-list-intro">
-                <view class="item-list-author">{{item.author}}</view>
+                <view class="item-list-author">{{item.author || "天源运动健身学院"}}</view>
                 <view class="item-list-time">{{item.time}}</view>
             </view>
         </view>
@@ -80,10 +80,29 @@ export default class Itemlist extends wepy.component {
             'https://pic.36krcnd.com/201806/19040132/c9kifx09a8jf77x7!heading'
         }
       ]
+    },
+    type: {
+      type: String,
+      default: 'news'
     }
   };
 
-  methods = {};
+  async onLoad() {
+    const type = this.type;
+    const { data } = await api[`get${type}List`]();
+    this.renderData = data;
+    this.$apply();
+  }
+
+  methods = {
+    goToDetail(e) {
+      const { currentTarget: { dataset } } = e;
+      const id = dataset.id;
+      wepy.navigateTo({
+        url: '/pages/' + this.type.toLowerCase() + 'detail?id=' + id
+      });
+    }
+  };
 }
 </script>
 <style lang="scss">
