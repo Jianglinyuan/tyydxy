@@ -1,0 +1,43 @@
+<style lang="scss">
+.card{
+  margin-top: 0;
+}
+
+.card-title{
+  display: none !important;
+}
+
+</style>
+
+<template>
+<view class="container">
+  <courselist></courselist>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import CourseList from '../components/home/course-list';
+
+export default class Classs extends wepy.page {
+  config = {
+    navigationBarTitleText: '精品课程',
+    usingComponents: {}
+  };
+  components = {
+    courselist: CourseList,
+  };
+
+  data = {};
+
+  methods = {};
+
+  events = {
+
+  };
+
+  onShow() {
+    console.log('hhh')
+  }
+}
+</script>

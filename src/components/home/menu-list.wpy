@@ -1,34 +1,73 @@
 <template>
-  <!--TODO 自定义高度处理-->
-  <view class="menu-list">
-    <view class="menu-list-item"><image mode="aspectFit" src="../../static/png/home/daoshi.png"/><text>培训导师</text> </view>
-    <view class="menu-list-item"><image mode="aspectFit" src="../../static/png/home/kecheng.png"/><text>精品课程</text> </view>
-    <view class="menu-list-item"><image mode="aspectFit" src="../../static/png/home/anli.png"/><text>案例中心</text> </view>
-    <view class="menu-list-item"><image mode="aspectFit" src="../../static/png/home/xueyuan.png"/><text>优秀学员</text> </view>
-    <view class="menu-list-item"><image mode="aspectFit" src="../../static/png/home/xinwen.png"/><text>新闻中心</text> </view>
-    <view class="menu-list-item"><image mode="aspectFit" src="../../static/png/home/shangcheng.png"/><text>研值商城</text> </view>
-    <view class="menu-list-item"><image mode="aspectFit" src="../../static/png/home/youhui.png"/><text>限时优惠</text> </view>
-    <view class="menu-list-item"><image mode="aspectFit" src="../../static/png/home/zhaoping.png"/><text>招聘精英</text> </view>
-  </view>
+<!--TODO 自定义高度处理-->
+<view class="menu-list">
+  <view class="menu-list-item">
+    <image
+      mode="aspectFit"
+      src="../../static/png/home/daoshi.png"
+    /><text>培训导师</text> </view>
+  <view @tap.stop="goToClass" class="menu-list-item">
+    <image
+      mode="aspectFit"
+      src="../../static/png/home/kecheng.png"
+    /><text>精品课程</text> </view>
+  <view class="menu-list-item">
+    <image
+      mode="aspectFit"
+      src="../../static/png/home/anli.png"
+    /><text>案例中心</text> </view>
+  <view class="menu-list-item">
+    <image
+      mode="aspectFit"
+      src="../../static/png/home/xueyuan.png"
+    /><text>优秀学员</text> </view>
+  <view class="menu-list-item">
+    <image
+      mode="aspectFit"
+      src="../../static/png/home/xinwen.png"
+    /><text>新闻中心</text> </view>
+  <view class="menu-list-item">
+    <image
+      mode="aspectFit"
+      src="../../static/png/home/shangcheng.png"
+    /><text>研值商城</text> </view>
+  <view class="menu-list-item">
+    <image
+      mode="aspectFit"
+      src="../../static/png/home/youhui.png"
+    /><text>限时优惠</text> </view>
+  <view class="menu-list-item">
+    <image
+      mode="aspectFit"
+      src="../../static/png/home/zhaoping.png"
+    /><text>招聘精英</text> </view>
+</view>
 </template>
 
 <script>
 import wepy from 'wepy';
-export default class MenuList extends wepy.component {}
+export default class MenuList extends wepy.component {
+  methods = {
+    goToClass() {
+      wepy.navigateTo({
+        url: "/pages/classs"
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss">
 @import '../../styles/variable';
-
 .menu-list {
   height: 100%;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between; 
+  justify-content: space-between;
   background: white;
 }
 
-.menu-list-item{
+.menu-list-item {
   width: 130rpx;
   height: 100rpx;
   display: flex;
@@ -36,14 +75,12 @@ export default class MenuList extends wepy.component {}
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   image {
     width: 60rpx;
     height: 60rpx;
     position: relative;
   }
-
-  text{
+  text {
     font-size: 22rpx;
     color: #565656;
   }
