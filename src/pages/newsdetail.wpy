@@ -57,7 +57,6 @@ export default class Newsdetail extends wepy.page {
     if (typeof tagFrom != 'undefined' && tagFrom.length > 0) {
       wx.previewImage({
         current: nowImgUrl, // 当前显示图片的http链接
-        // urls: that.data[tagFrom].imageUrls // 需要预览的图片http链接列表
         urls: that.bindData[tagFrom].imageUrls // 注释掉上面的 换着一行 (http://blog.csdn.net/zhuming3834/article/details/74380079)
       });
     }
@@ -84,9 +83,9 @@ export default class Newsdetail extends wepy.page {
   padding: 20rpx;
 
   .detail-title {
-    font-size: 30rpx !important;
-    font-weight: 500;
+    font-size: 16px !important;
     margin-bottom: 30rpx;
+    font-weight: bolder;
   }
 
   .detail-info {

@@ -29,11 +29,18 @@ export default class CourseList extends wepy.component {
     class: []
   }
 
+  props ={
+    limit: {
+      type: String
+    }
+  }
+
   async onLoad() {
+    let url = "https://siyan.tech/ty-api/getClass";
+    if(this.limit !== 'nolimit') url = 'https://siyan.tech/ty-api/getClass?limit=4';
     const {
       data
-    } = await wepy.request('https://siyan.tech/ty-api/getClass');
-    console.log(data)
+    } = await wepy.request(url);
     this.class = data;
     this.$apply();
   }

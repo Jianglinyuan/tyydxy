@@ -21,7 +21,7 @@ export default class NewsList extends wepy.component {
   async onLoad() {
     const {
       data
-    } = await wepy.request('https://siyan.tech/ty-api/getNews');
+    } = await wepy.request('https://siyan.tech/ty-api/getNews?limit=4');
     this.news = data;
     this.$apply();
   }

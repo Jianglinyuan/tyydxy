@@ -11,7 +11,7 @@
 
 <template>
 <view class="container">
-  <courselist></courselist>
+  <courselist limit="nolimit"></courselist>
 </view>
 </template>
 
