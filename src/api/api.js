@@ -147,6 +147,10 @@ const getAdList = (params) => wxRequest(params, apiTy + '/api/adverts/list');
 // 查询新闻列表 
 const getNewsList = (params) => wxRequest(params, apiTy + '/getNews');
 
+
+// 查询案例列表 
+const getAnliList = (params) => wxRequest(params, apiTy + '/getAnlis');
+
 export default {
   hostGoodsList,
   getDiscoverList,
@@ -198,5 +202,6 @@ export default {
   getPayOrderDetail,
   getAdList,
   getSignDate,
-  getNewsList
+  getNewsList,
+  getAnliList
 }

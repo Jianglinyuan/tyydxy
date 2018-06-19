@@ -53,7 +53,7 @@ export default class NewsList extends wepy.component {
 }
 
 .news-list-item {
-  height: 100rpx;
+  height: 130rpx;
   display: flex;
   margin: 20rpx;
   flex-direction: row;
@@ -67,8 +67,8 @@ export default class NewsList extends wepy.component {
   view {
     font-size: 22rpx;
     color: #565656;
-    flex-grow: 1;
-    padding: 10rpx;
+    flex: 1;
+    padding: 20rpx;
   }
 }
 </style>

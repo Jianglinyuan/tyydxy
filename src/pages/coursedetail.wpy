@@ -208,13 +208,7 @@ export default class courseDetail extends wepy.page {
       });
     }
   }
-  /*onReachBottom() {
-    let that = this;
-    if (that.good_bigimg.length == 0) {
-      that.good_bigimg = that.detail.good_bigimg;
-      that.$apply();
-    }
-  }*/
+  
   async getClassDetail() {
     let that = this;
     //const json = await api.getClassDetail({
