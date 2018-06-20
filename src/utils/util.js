@@ -1,4 +1,4 @@
-function getCurrentTime() {
+function getCurrentTime(formate) {
   var keep = '';
   var date = new Date();
   var y = date.getFullYear();
@@ -10,6 +10,9 @@ function getCurrentTime() {
   var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
   var rand = Math.round(Math.random() * 899 + 100);
   keep = y + '' + m + '' + d + '' + h + '' + f + '' + s;
+  if(formate) {
+    keep = `${y}-${m}-${d} ${h}:${f}:${s}`
+  }
   return keep; //20160614134947
 }
 

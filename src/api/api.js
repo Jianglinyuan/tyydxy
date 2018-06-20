@@ -151,6 +151,12 @@ const getNewsList = (params) => wxRequest(params, apiTy + '/getNews');
 // 查询案例列表 
 const getAnliList = (params) => wxRequest(params, apiTy + '/getAnlis');
 
+// 评论案例 
+const reviewAnli = (params) => wxRequest(params, apiTy + '/reviewAnli');
+
+const likeAnli = (params) => wxRequest(params, apiTy + '/likeAnli');
+const getTeahcer = (params) => wxRequest(params, apiTy + '/getTeachers');
+
 export default {
   hostGoodsList,
   getDiscoverList,
@@ -203,5 +209,8 @@ export default {
   getAdList,
   getSignDate,
   getNewsList,
-  getAnliList
+  getAnliList,
+  reviewAnli,
+  likeAnli,
+  getTeahcer
 }

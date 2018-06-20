@@ -1,0 +1,117 @@
+<style lang="scss">
+.teacher-list {
+  display: flex;
+  flex-direction: column;
+  margin: 10rpx 0rpx 40rpx 0rpx;
+  background-color: #fff;
+  box-shadow: 0 12px 30px hsla(0, 0%, 82%, .5);
+  padding: 30rpx;
+  .teacher-top {
+    display: flex;
+    .teacher-pic {
+      width: 400rpx;
+    }
+    .teacher-nameandtitle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 20rpx;
+      .teacher-name {
+        color: #D3AA7B;
+        font-weight: bolder;
+        font-size: 18px;
+        text-align: center;
+      }
+
+      .teacher-title{
+        display: flex;
+        margin-top: 30rpx;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .teacher-jieshao{
+    margin-top: 20rpx;
+    color:#8C8889;
+  }
+
+  .teacher-jieshao-title{
+    height: 50rpx;
+    border-left: #D3AA7B solid 4px;
+    margin-top: 20rpx;
+    font-size: 16px;
+    padding-left: 20rpx;
+    line-height: 50rpx;
+  }
+}
+
+</style>
+
+<template>
+<view class="container">
+  <view
+    wx:for="{{teachers}}"
+    wx:key="id"
+    class="teacher-list"
+  >
+    <view class="teacher-top">
+      <image
+        class="teacher-pic"
+        src="{{item.pic}}"
+        mode="aspectFill"
+      />
+      <view class="teacher-nameandtitle">
+        <view class="teacher-name">
+          {{item.name}}
+        </view>
+        <view class="teacher-title">
+          <view wx:for="{{item.title}}"  wx:key="item">{{item}}</view>
+        </view>
+      </view>
+
+    </view>
+
+    <view class="teacher-jieshao-title">导师简介</view>
+    <view class="teacher-jieshao">
+      {{item.jieshao}}
+    </view>
+</view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import tip from '@/utils/tip';
+import api from '@/api/api';
+import {
+  USER_INFO,
+  USER_SPECICAL_INFO
+} from '@/utils/constant';
+export default class Teachers extends wepy.page {
+
+  data = {
+    teachers: []
+  }
+
+  async onLoad() {
+    const {
+      data = []
+    } = await api.getTeahcer();
+    data.forEach(element => {
+      element.title = JSON.parse(element.title);
+    });
+    this.teachers = data;
+    this.$apply();
+  }
+
+  config = {
+    navigationBarTitleText: '培训导师',
+    usingComponents: {}
+  };
+  components = {};
+
+}
+</script>

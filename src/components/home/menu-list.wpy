@@ -1,7 +1,7 @@
 <template>
 <!--TODO 自定义高度处理-->
 <view class="menu-list">
-  <view class="menu-list-item">
+  <view class="menu-list-item" @tap.stop="goToTeacher">
     <image
       mode="aspectFit"
       src="../../static/png/home/daoshi.png"
@@ -64,6 +64,12 @@ export default class MenuList extends wepy.component {
        wepy.navigateTo({
         url: "/pages/anli"
       }) 
+    },
+
+    goToTeacher(){
+     wepy.navigateTo({
+        url: "/pages/teachers"
+      })  
     }
   }
 }

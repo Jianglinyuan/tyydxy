@@ -8,7 +8,7 @@ export const USER_SPECICAL_INFO = "userSecretInfo";
  * 用户信息
  * @type {String}
  */
-export const USER_INFO = "uuser";
+export const USER_INFO = "user";
 
 /**
  * 系统信息
