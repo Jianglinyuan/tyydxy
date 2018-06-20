@@ -9,7 +9,7 @@
 
 <script>
 import wepy from 'wepy';
-import Itemlist from '../components/item_list';
+import Itemlist from '@/components/item_list';
 
 export default class Anli extends wepy.page {
   config = {

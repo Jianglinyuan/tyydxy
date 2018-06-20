@@ -4,6 +4,7 @@
 @import './styles/icons2.scss';
 @import './styles/base.scss';
 @import './zanui/helper.scss';
+@import './styles/weui.scss';
 </style>
 
 <script>
