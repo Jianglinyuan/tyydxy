@@ -5,7 +5,7 @@
   margin: 10rpx 0rpx 40rpx 0rpx;
   background-color: #fff;
   box-shadow: 0 12px 30px hsla(0, 0%, 82%, 0.5);
-  padding: 30rpx;
+  padding: 20rpx;
   .student-top {
     display: flex;
     flex-direction: column;
@@ -37,6 +37,7 @@
         font-size: 10px;
         color: #8c8889;
         text-align: center;
+        margin-top: 20rpx;
       }
     }
   }
@@ -50,6 +51,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 </style>
 
@@ -59,6 +61,8 @@
     wx:for="{{students}}"
     wx:key="id"
     class="student-list"
+    data-id="{{item.id}}"
+    @tap.stop="goToDatail" 
   >
     <view class="student-top">
       <image
@@ -96,6 +100,16 @@ export default class Students extends wepy.page {
     this.students = data;
     this.$apply();
   }
+
+  methods = {
+    goToDatail(e) {
+      const { currentTarget: { dataset } } = e;
+      const id = dataset.id;
+      wepy.navigateTo({
+        url: '/pages/studentdetail?id=' + id
+      });
+    }
+  };
 
   config = {
     navigationBarTitleText: '优秀学员',
