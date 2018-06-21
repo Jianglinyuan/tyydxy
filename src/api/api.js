@@ -155,7 +155,10 @@ const getAnliList = (params) => wxRequest(params, apiTy + '/getAnlis');
 const reviewAnli = (params) => wxRequest(params, apiTy + '/reviewAnli');
 
 const likeAnli = (params) => wxRequest(params, apiTy + '/likeAnli');
+
+// 老师、学生列表
 const getTeahcer = (params) => wxRequest(params, apiTy + '/getTeachers');
+const getStudent = (params) => wxRequest(params, apiTy + '/getStudents');
 
 export default {
   hostGoodsList,
@@ -212,5 +215,6 @@ export default {
   getAnliList,
   reviewAnli,
   likeAnli,
-  getTeahcer
+  getTeahcer,
+  getStudent
 }

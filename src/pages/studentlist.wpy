@@ -1,0 +1,106 @@
+<style lang="scss">
+.student-list {
+  display: flex;
+  width: 40%;
+  margin: 10rpx 0rpx 40rpx 0rpx;
+  background-color: #fff;
+  box-shadow: 0 12px 30px hsla(0, 0%, 82%, 0.5);
+  padding: 30rpx;
+  .student-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .student-pic {
+      width: 400rpx;
+    }
+    .student-nameandtitle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: 20rpx;
+
+      .student-name {
+        color: #d3aa7b;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .student-title {
+        display: flex;
+        margin-top: 30rpx;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .student-more {
+        font-size: 10px;
+        color: #8c8889;
+        text-align: center;
+      }
+    }
+  }
+
+  .student-jieshao {
+    margin-top: 20rpx;
+    color: #8c8889;
+  }
+}
+.student-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+</style>
+
+<template>
+<view class="student-container">
+  <view
+    wx:for="{{students}}"
+    wx:key="id"
+    class="student-list"
+  >
+    <view class="student-top">
+      <image
+        class="student-pic"
+        src="{{item.pic}}"
+        mode="aspectFill"
+      />
+      <view class="student-nameandtitle">
+        <view class="student-name">
+          姓名：{{item.name}}
+        </view>
+        <view class="student-more">
+           > 点击了解更多 
+        </view>
+      </view>
+
+    </view>
+   
+</view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import tip from '@/utils/tip';
+import api from '@/api/api';
+import { USER_INFO, USER_SPECICAL_INFO } from '@/utils/constant';
+export default class Students extends wepy.page {
+  data = {
+    students: []
+  };
+
+  async onLoad() {
+    const { data = [] } = await api.getStudent();
+    this.students = data;
+    this.$apply();
+  }
+
+  config = {
+    navigationBarTitleText: '优秀学员',
+    usingComponents: {}
+  };
+  components = {};
+}
+</script>
