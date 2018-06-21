@@ -27,7 +27,8 @@ export default class extends wepy.app {
       'pages/anlidetail',
       'pages/teachers',
       'pages/studentlist',
-      'pages/studentdetail'
+      'pages/studentdetail',
+      'pages/addarticle'
     ],
     window: {
       backgroundColor: '#FFFFFF',

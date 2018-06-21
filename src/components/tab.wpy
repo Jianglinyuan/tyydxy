@@ -5,6 +5,7 @@
       {{item.name? item.name:item}}
       <view class=" {{item.dotNum>=100?'dotbig':'dot'}}" wx:if="{{item.dotNum>0}}">{{item.dotNum}}</view>
     </view>
+    <view class="publish-new" @tap.stop="goToPublish">发布新例</view>
   </view>
 </template>
 <script>
@@ -41,6 +42,12 @@ export default class Filter extends wepy.component {
      */
     changeList(dotList) {
       this.tabList = dotList;
+    },
+
+    goToPublish(){
+       wepy.navigateTo({
+        url: "/pages/addarticle"
+      }) 
     }
   }
 
@@ -69,7 +76,7 @@ export default class Filter extends wepy.component {
   text-align: center;
   align-items:center;/*垂直居中*/
   justify-content: center;/*水平居中*/
-  background: #e52424;
+  background: #dba874;
   border-radius: 100px;
   color: #fff;
   z-index: 999;
@@ -87,7 +94,7 @@ export default class Filter extends wepy.component {
   text-align: center;
   align-items:center;/*垂直居中*/
   justify-content: center;/*水平居中*/
-  background: #e52424;
+  background: #dba874;
   border-radius: 100px;
   color: #fff;
   z-index: 999;
@@ -102,7 +109,7 @@ export default class Filter extends wepy.component {
   text-align: center;
   line-height: 80rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   background: #fff;
 }
@@ -115,8 +122,8 @@ export default class Filter extends wepy.component {
 }
 
 .active {
-  color: #eb6623;
-  border-bottom: 5rpx solid #eb6623;
+  color: #dba874;
+  border-bottom: 5rpx solid #dba874;
 }
 
 .swiper-box {

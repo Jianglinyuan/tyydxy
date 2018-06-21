@@ -1,0 +1,34 @@
+<style lang="scss">
+.container {
+  height: 100%;
+  background: white;
+}
+</style>
+
+<template>
+<view class="container">
+  <web-view src="https://siyan.tech/ty/index.html?id=1&type=anli"></web-view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class Addarticle extends wepy.page {
+  config = {
+    navigationBarTitleText: '添加/修改文章',
+    usingComponents: {}
+  };
+  components = {
+
+  };
+
+  data = {};
+
+  methods = {};
+
+  events = {
+
+  };
+}
+</script>
