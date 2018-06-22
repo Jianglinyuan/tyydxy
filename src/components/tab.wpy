@@ -9,7 +9,8 @@
   </view>
 </template>
 <script>
-import wepy from 'wepy'
+import wepy from 'wepy';
+import { SYSTEM_INFO, USER_SPECICAL_INFO } from '@/utils/constant';
 
 export default class Filter extends wepy.component {
   props = {
@@ -19,7 +20,7 @@ export default class Filter extends wepy.component {
     tabList: {
       type: Object
     }
-  }
+  };
 
   methods = {
     /**
@@ -33,7 +34,7 @@ export default class Filter extends wepy.component {
         that.currentTab = e.target.dataset.current;
         that.$apply();
       }
-      this.$emit("currentTab", that.currentTab)
+      this.$emit('currentTab', that.currentTab);
     },
     /**
      * 头部红点标识
@@ -44,25 +45,28 @@ export default class Filter extends wepy.component {
       this.tabList = dotList;
     },
 
-    goToPublish(){
-       wepy.navigateTo({
-        url: "/pages/addarticle"
-      }) 
+    goToPublish() {
+      let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
+      let openId = userSpecialInfo.openid;
+      let type = "anli"; 
+      if(this.currentTab == '1') {
+        type = "bingli"
+      } 
+      wepy.navigateTo({
+        url: `/pages/addarticle?type=${this.type}&openId=${openId}&isnew=1`
+      });
     }
-  }
-
+  };
 
   onLoad() {
     let that = this;
-
   }
   watch = {
     currentTab(newValue, oldValue) {
-      console.log(`currentTab value: ${oldValue} -> ${newValue}`)
+      console.log(`currentTab value: ${oldValue} -> ${newValue}`);
     }
-  }
+  };
 }
-
 </script>
 <style lang="less">
 /**index.wxss**/
@@ -74,8 +78,8 @@ export default class Filter extends wepy.component {
   height: 35rpx;
   line-height: 40rpx;
   text-align: center;
-  align-items:center;/*垂直居中*/
-  justify-content: center;/*水平居中*/
+  align-items: center; /*垂直居中*/
+  justify-content: center; /*水平居中*/
   background: #dba874;
   border-radius: 100px;
   color: #fff;
@@ -92,8 +96,8 @@ export default class Filter extends wepy.component {
   height: 35rpx;
   line-height: 40rpx;
   text-align: center;
-  align-items:center;/*垂直居中*/
-  justify-content: center;/*水平居中*/
+  align-items: center; /*垂直居中*/
+  justify-content: center; /*水平居中*/
   background: #dba874;
   border-radius: 100px;
   color: #fff;
@@ -138,7 +142,7 @@ export default class Filter extends wepy.component {
   overflow-x: hidden;
 }
 
-.publish-new{
+.publish-new {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -148,5 +152,4 @@ export default class Filter extends wepy.component {
   width: 160rpx;
   color: #f3f3f3;
 }
-
 </style>

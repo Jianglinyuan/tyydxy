@@ -7,7 +7,7 @@
 
 <template>
 <view class="container">
-  <web-view src="https://siyan.tech/ty/index.html?id=1&type=anli&openId=213213"></web-view>
+  <web-view src="{{url}}"></web-view>
 </view>
 </template>
 
@@ -19,16 +19,31 @@ export default class Addarticle extends wepy.page {
     navigationBarTitleText: '添加/修改文章',
     usingComponents: {}
   };
-  components = {
+  components = {};
 
+  data = {
+    id: 0,
+    isnew: 1,
+    openId: '',
+    type: 'anli',
+    url: ''
   };
 
-  data = {};
+  onLoad(option) {
+    const {id ,isnew ,openId, type} = option;
+    this.id = id;
+    this.isnew = isnew;
+    this.openId = openId;
+    this.type = type.toLowerCase();
+    this.url = `https://siyan.tech/ty/index.html?id=${this.id}&type=${this.type}&openId=${this.openId}&isnew=${this.isnew}`
+    console.log(this.url)
+    this.$apply();
+    console.log(this)
+  }
+
 
   methods = {};
 
-  events = {
-
-  };
+  events = {};
 }
 </script>

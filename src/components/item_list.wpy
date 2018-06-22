@@ -1,5 +1,5 @@
 <template>
-    <tab :tabList.sync="tablelist"></tab>
+    <tab :tabList.sync="tablelist" @currentTab.user="switchTab"></tab>
     <view wx:for="{{renderData}}" @tap.stop="goToDetail" wx:key="{{id}}" data-id="{{item.id}}" class="item-list-wrapper">
         <view class="item-list-pic">
             <image src="{{item.pic}}" mode="scaleToFill" />
@@ -8,7 +8,8 @@
             <view class="item-list-title">{{item.title}}</view>
             <view class="item-list-intro">
                 <view class="item-list-author">{{item.author || "天源运动健身学院"}}</view>
-                <view class="item-list-time">{{item.time}}</view>
+                <view @tap.stop='userModify' data-id="{{item.id}}" wx:if="{{item.openId === openId}}" class="item-list-modify">修改</view>
+                <view class="item-list-time">{{item.updated_at}}</view>
             </view>
         </view>
     </view>
@@ -33,7 +34,8 @@ export default class Itemlist extends wepy.component {
   };
 
   data = {
-    tablelist: [{ index: 1, name: '案例' }, { index: 2, name: '病例' }]
+    tablelist: [{ index: 1, name: '案例' }, { index: 2, name: '病例' }],
+    openId: ""
   };
 
   components = {
@@ -42,8 +44,11 @@ export default class Itemlist extends wepy.component {
 
   async onLoad() {
     const type = this.type;
+    let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
+    let openId = userSpecialInfo.openid;
     const { data } = await api[`get${type}List`]();
     this.renderData = data;
+    this.openId = openId;
     this.$apply();
   }
 
@@ -53,6 +58,28 @@ export default class Itemlist extends wepy.component {
       const id = dataset.id;
       wepy.navigateTo({
         url: '/pages/' + this.type.toLowerCase() + 'detail?id=' + id
+      });
+    },
+
+    async switchTab(value) {
+      if (value == 0) {
+        const { data } = await api[`getAnliList`]();
+        this.renderData = data;
+        this.type = 'Anli';
+        this.$apply();
+      } else {
+        const { data } = await api[`getBinglisList`]();
+        this.renderData = data;
+        this.type = 'Bingli';
+        this.$apply();
+      }
+    },
+
+    userModify(e) {
+      const { currentTarget: { dataset } } = e;
+      const id = dataset.id;
+      wepy.navigateTo({
+        url: `/pages/addarticle?id=${id}&type=${this.type}&openId=${this.openId}&isnew=0`
       });
     }
   };
@@ -101,6 +128,11 @@ export default class Itemlist extends wepy.component {
 
         .item-list-author {
           font-size: 20rpx;
+        }
+
+        .item-list-modify {
+          font-size: 20rpx;
+          color: #dba874;
         }
 
         .item-list-time {

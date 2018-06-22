@@ -25,6 +25,7 @@ export default class extends wepy.app {
       'pages/anli',
       'pages/newsdetail',
       'pages/anlidetail',
+      'pages/binglidetail',
       'pages/teachers',
       'pages/studentlist',
       'pages/studentdetail',

@@ -6,7 +6,7 @@
   </view>
   <view class="detail-info">
     <text>作者:{{"    "}}<text class="detail-info-name">{{renderData.author || "天源运动健身学院"}}</text></text>
-    <text class="detail-info-time">{{renderData.updated_at}}</text>
+    <text class="detail-info-time">{{renderData.time}}</text>
   </view>
   <view class="detail-info detail-info-last">
     <text>阅读数:{{"    "}}<text class="detail-info-name">{{renderData.creator || 0}}</text></text>
@@ -179,7 +179,7 @@ export default class Anlidetail extends wepy.page {
     const openId = option.openId;
     const {
       data
-    } = await api.getAnliList({
+    } = await api.getBinglisList({
       query: {
         id
       }

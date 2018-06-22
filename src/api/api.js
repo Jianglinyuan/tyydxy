@@ -150,6 +150,7 @@ const getNewsList = (params) => wxRequest(params, apiTy + '/getNews');
 
 // 查询案例列表 
 const getAnliList = (params) => wxRequest(params, apiTy + '/getAnlis');
+const getBinglisList = (params) => wxRequest(params, apiTy + '/getBinglis');
 
 // 评论案例 
 const reviewAnli = (params) => wxRequest(params, apiTy + '/reviewAnli');
@@ -216,5 +217,6 @@ export default {
   reviewAnli,
   likeAnli,
   getTeahcer,
-  getStudent
+  getStudent,
+  getBinglisList
 }
