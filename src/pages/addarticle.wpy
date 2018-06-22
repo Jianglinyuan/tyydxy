@@ -7,7 +7,7 @@
 
 <template>
 <view class="container">
-  <web-view src="https://siyan.tech/ty/index.html?id=1&type=anli"></web-view>
+  <web-view src="https://siyan.tech/ty/index.html?id=1&type=anli&openId=213213"></web-view>
 </view>
 </template>
 

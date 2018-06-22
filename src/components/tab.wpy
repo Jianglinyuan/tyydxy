@@ -138,4 +138,15 @@ export default class Filter extends wepy.component {
   overflow-x: hidden;
 }
 
+.publish-new{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #34495d;
+  height: 50rpx;
+  margin-top: 15rpx;
+  width: 160rpx;
+  color: #f3f3f3;
+}
+
 </style>
