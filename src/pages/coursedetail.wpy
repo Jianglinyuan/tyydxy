@@ -233,16 +233,16 @@ export default class courseDetail extends wepy.page {
     let that = this;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
     let openId = userSpecialInfo.openid;
-    const json = await api.addCart({
-      query: {
-        openId: openId,
-        classId: that.classId,
-        goodsSkuId: this.detail.goodsSkuValIds,
-        purchaseType: this.purchasetype,
-        num: this.orderNum
-      }
-    });
-    if (json.data.code == 0) {
+    // const json = await api.addCart({
+    //   query: {
+    //     openId: openId,
+    //     classId: that.classId,
+    //     goodsSkuId: this.detail.goodsSkuValIds,
+    //     purchaseType: this.purchasetype,
+    //     num: this.orderNum
+    //   }
+    // });
+    if (true) {
       this.winHeight = '100%';
       this.animation.height(0).step();
       this.setData({
@@ -254,7 +254,7 @@ export default class courseDetail extends wepy.page {
       }, 100);
       wepy.navigateTo({
         url:
-          '/pages/comfire_order?classId=' +
+          '/pages/orderconfirm?classId=' +
           that.classId +
           '&purchasetype=' +
           that.purchasetype
@@ -382,7 +382,7 @@ export default class courseDetail extends wepy.page {
       }
       this.showConfirmData();
       this.orderType = 2;
-      //this.doTakeOrder();
+      this.doTakeOrder();
     },
     takeCart() {
       if (!this.canOrder) {

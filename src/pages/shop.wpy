@@ -1,0 +1,31 @@
+<style lang="scss">
+</style>
+
+<template>
+<view class="container">
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class Yanzhi extends wepy.page {
+  config = {
+    navigationBarTitleText: '研值商城',
+    usingComponents: {}
+  };
+  components = {
+  };
+
+  data = {};
+
+  methods = {};
+
+  events = {
+
+  };
+
+  onShow() {
+  }
+}
+</script>

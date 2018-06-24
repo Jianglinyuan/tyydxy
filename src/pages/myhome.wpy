@@ -31,7 +31,7 @@
     </view>
   </view>
   <view class="home-invate">
-    <button class="home-invate-joinus">
+    <button class="home-invate-joinus" @tap="goToClass">
       <view class="home-invate-joinus-title"><image mode="aspectFit" src="../static/png/my/class.png" />加入学习</view>
       <view class="home-invate-joinus-des">多门学科，任你选择</view>
     </button>
@@ -113,11 +113,15 @@ export default class Myhome extends wepy.page {
               that.$apply();
             }
           })
-
         } catch (e) {
           console.log(e.message)
         }
       }
+    },
+    goToClass(){
+      wepy.navigateTo({
+        url: "/pages/classs"
+      })
     }
   };
   computed = {

@@ -223,7 +223,7 @@ export default class Anlidetail extends wepy.page {
   }
   .comment-list-title {
     color: #8699a3;
-    margin-top: 10rpx;
+    margin-top: 20rpx;
     padding-left: 20rpx;
     position: relative;
     &::before {
@@ -247,5 +247,9 @@ export default class Anlidetail extends wepy.page {
     display: flex;
     align-items: center;
   }
+}
+
+.comment-list-view{
+  margin-top: 20rpx;
 }
 </style>

@@ -1,0 +1,150 @@
+<!--确认订单-->
+<template>
+<view class="order-confirm-container">
+  <view class="order_info">
+    <view class="block">
+      <view class="left">课程名称</view>
+      <view class="right">15天腹肌训练的密码</view>
+    </view>
+    <view class="block">
+      <view class="left ">上课时间</view>
+      <view class="right">周一到周五 18:00 每天一节</view>
+    </view>
+    <view class="block">
+      <view class="left important">上课人姓名</view>
+      <view class="right input_box">
+        <input
+          bindinput="bindNameInput"
+          placeholder="请输入上课人姓名"
+          auto-focus
+        />
+      </view>
+    </view>
+    <view class="block">
+      <view class="left important">上课人电话</view>
+      <view class="right input_box">
+        <input
+          bindinput="bindPhoneInput"
+          placeholder="请输入上课人电话号码"
+        />
+      </view>
+    </view>
+    <view class="block">
+      <view class="left">使用优惠券</view>
+      <view class="right">暂无</view>
+    </view>
+    <view class="spacing"></view>
+    <view class="spacing"></view>
+    <view class="block">
+      <view class="left tongji">课程总价</view>
+      <view>
+        <view
+          class="right price"
+          wx:if="{{youhuijuan>0}}"
+        >商品金额:￥{{totalPrice}}-积分:￥{{youhuijuan}}</view>
+      <view class="right price">应付:￥{{actualPrice || 2000}}</view>
+    </view>
+  </view>
+
+  <view class="buyBtn">
+    <button
+      class="weui-btn"
+      type="primary"
+      @tap="submitBuy"
+    >提交订单</button>
+  </view>
+</view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import api from '@/api/api';
+import tip from '@/utils/tip';
+import {
+  SYSTEM_INFO,
+  USER_SPECICAL_INFO,
+  ADDRESS_ID
+} from '@/utils/constant';
+export default class ComfireOrder extends wepy.page {
+  config = {
+    navigationBarTitleText: '确认订单',
+  }
+  components = {}
+
+  data = {}
+
+  methods = {
+    bindNameInput(e) {
+      const value = e.detail.value;
+      this.buyName = value;
+      this.$apply();
+    },
+
+    bindPhoneInput(e) {
+      const value = e.detail.value;
+      this.buyPhone = value;
+      this.$apply();
+    },
+
+    submitBuy() {
+      if (this.buyName == '' || !this.buyName) {
+        tip.error('上课人姓名不能为空');
+        return;
+      }
+
+      if (this.buyPhone == '' || !this.buyPhone) {
+        tip.error('上课人电话不能为空');
+        return;
+      }
+
+    }
+  }
+
+}
+</script>
+
+<style lang="scss">
+.order_info {
+  .block {
+    display: flex;
+    justify-content: space-between;
+    height: 91rpx;
+    align-items: center;
+    padding: 0rpx 35rpx;
+    border-bottom: 1px solid #efefef;
+    background: #fff;
+    .txt {
+      font-size: 32rpx;
+    }
+    .important {
+      color: #D3AA7B !important;
+    }
+    .left {
+      color: #000;
+    }
+    .right {
+      color: #9a9a9a;
+      text-align: right;
+    }
+    .price {
+      color: #ea4a3a;
+      font-size: 32rpx;
+    }
+    .tongji {
+      font-size: 32rpx;
+    }
+    .input_box {
+      flex: 1;
+      margin-left: 20rpx;
+    }
+    .total_jf {
+      font-size: 32rpx;
+    }
+  }
+}
+
+.buyBtn {
+  margin: 30rpx 20rpx;
+}
+</style>

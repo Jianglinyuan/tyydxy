@@ -1,5 +1,5 @@
 <template>
-    <tab :tabList.sync="tablelist" @currentTab.user="switchTab"></tab>
+    <tab wx:if="{{showTab == '1'}}" :tabList.sync="tablelist" @currentTab.user="switchTab"></tab>
     <view wx:for="{{renderData}}" @tap.stop="goToDetail" wx:key="{{id}}" data-id="{{item.id}}" class="item-list-wrapper">
         <view class="item-list-pic">
             <image src="{{item.pic}}" mode="scaleToFill" />
@@ -30,6 +30,10 @@ export default class Itemlist extends wepy.component {
     type: {
       type: String,
       default: 'news'
+    },
+    showTab: {
+      type: String,
+      default: '1' 
     }
   };
 
