@@ -1,9 +1,11 @@
 import {
   wxRequest
 } from '@/utils/wxRequest';
+import wepy from 'wepy';
 
 let env = "-test" //-dev 或者 -test
-const apiTy = 'https://siyan.tech/ty-api'
+const apiTy = wepy.$appConfig.baseUrl;
+console.log(apiTy);
 
 /**
  * 获取发现好商品接口
