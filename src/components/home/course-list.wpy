@@ -36,8 +36,8 @@ export default class CourseList extends wepy.component {
   }
 
   async onLoad() {
-    let url = "https://siyan.tech/ty-api/getClass";
-    if(this.limit !== 'nolimit') url = 'https://siyan.tech/ty-api/getClass?limit=4';
+    let url = wepy.$appConfig.baseUrl + "/ty-api/getClass";
+    if(this.limit !== 'nolimit') url = wepy.$appConfig.baseUrl + '/ty-api/getClass?limit=4';
     const {
       data
     } = await wepy.request(url);

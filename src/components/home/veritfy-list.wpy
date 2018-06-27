@@ -28,7 +28,7 @@ export default class VeritfyList extends wepy.component {
   async onLoad() {
     const {
       data
-    } = await wepy.request('https://siyan.tech/ty-api/getVerify');
+    } = await wepy.request(wepy.$appConfig.baseUrl + '/ty-api/getVerify');
     this.veritfys = data;
     this.$apply();
   }

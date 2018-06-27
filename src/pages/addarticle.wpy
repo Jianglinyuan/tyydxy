@@ -35,7 +35,7 @@ export default class Addarticle extends wepy.page {
     this.isnew = isnew;
     this.openId = openId;
     this.type = type.toLowerCase();
-    this.url = `https://siyan.tech/ty/index.html?id=${this.id}&type=${this.type}&openId=${this.openId}&isnew=${this.isnew}`
+    this.url = wepy.$appConfig.baseUrl + `/ty/index.html?id=${this.id}&type=${this.type}&openId=${this.openId}&isnew=${this.isnew}`
     console.log(this.url)
     this.$apply();
     console.log(this)

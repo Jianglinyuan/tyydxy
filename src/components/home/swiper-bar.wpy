@@ -15,7 +15,7 @@ export default class SwiperBar extends wepy.component {
   };
 
   async onLoad() {
-    const { data } = await wepy.request('https://siyan.tech/ty-api/getBanner');
+    const { data } = await wepy.request(wepy.$appConfig.baseUrl + '/ty-api/getBanner');
     console.log(data)
     this.banner = data;
     this.$apply();

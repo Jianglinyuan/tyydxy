@@ -10,6 +10,9 @@
 <script>
 import wepy from 'wepy';
 import 'wepy-async-function';
+// const baseUrl = wepy.$appConfig.baseUrl;
+console.log(wepy.$appConfig);
+// console.log(baseUrl);
 
 export default class extends wepy.app {
   config = {
@@ -86,11 +89,12 @@ export default class extends wepy.app {
 
   onLaunch() {
     this.testAsync();
+    console.log(wepy.$appConfig);
     wx.login({
       success: function(res) {
         if (res.code) {
           wx.request({
-            url: 'https://siyan.tech/ty-api/login',
+            url: wepy.$appConfig.baseUrl + '/ty-api/login',
             data: {
               code: res.code
             },

@@ -5,7 +5,7 @@ import wepy from 'wepy';
 
 let env = "-test" //-dev 或者 -test
 const apiTy = wepy.$appConfig.baseUrl;
-console.log(apiTy);
+console.log('baseUrl: ', apiTy);
 
 /**
  * 获取发现好商品接口

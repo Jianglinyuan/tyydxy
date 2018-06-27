@@ -79,7 +79,7 @@ export default class Myhome extends wepy.page {
       const userSecretInfo = wx.getStorageSync('userSecretInfo');
       const openID = userSecretInfo.openid;
       wx.request({
-        url: 'https://siyan.tech/ty-api/getUser',
+        url: wepy.$appConfig.baseUrl + '/ty-api/getUser',
         data: {
           openID
         },
@@ -102,7 +102,7 @@ export default class Myhome extends wepy.page {
           const userSecretInfo = wx.getStorageSync('userSecretInfo');
           const openID = userSecretInfo.openid;
           wx.request({
-            url: 'https://siyan.tech/ty-api/login',
+            url: wepy.$appConfig.baseUrl + '/ty-api/login',
             data: {
               openID,
               ...e.detail.userInfo
