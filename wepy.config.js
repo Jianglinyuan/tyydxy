@@ -44,7 +44,7 @@ module.exports = {
   },
   appConfig: {
     noPromiseAPI: ['createSelectorQuery'],
-    baseUrl: process.env.NODE_ENV === 'PROD' ? 'https://siyan.tech/ty-api/' : 'http://127.0.0.1:9501',
+    baseUrl: process.env.NODE_ENV === 'PROD' ? 'https://siyan.tech' : 'https://siyan.tech',
   }
 }
 

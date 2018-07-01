@@ -1,53 +1,36 @@
 <template>
 <!--TODO 自定义高度处理-->
 <view class="card indexform">
-  <view wx:if={{showTitle}} class="card-title">开始学习之旅</view>
-  <view class="container">
-    <view  wx:for="{{options}}" wx:for-item="option" wx:key="name">
-      <view class="zan-cell zan-field {{ option.error ? 'zan-field--error' : '' }} {{ option.mode === 'wrapped' ? 'zan-field--wrapped' : '' }}">
-        <view
-          wx:if="{{ option.title }}"
-          class="zan-cell__hd zan-field__title"
-        >{{ option.title }}</view>
-      <textarea
-        wx:if="{{ option.type === 'textarea' }}"
-        auto-height
-        name="{{ option.name || componentId || '' }}"
-        value="{{ option.value }}"
-        placeholder="{{ option.placeholder }}"
-        class="zan-field__input zan-cell__bd {{ option.right ? 'zan-field__input--right' : '' }}"
-        placeholder-class="zan-field__placeholder"
-        bindinput="handleZanFieldChange"
-        data-component-id="{{ componentId || '' }}"
-      ></textarea>
-        <input
-          wx:else
-          type="{{ option.inputType || 'text' }}"
-          name="{{ option.name || componentId || '' }}"
-          value="{{ option.value }}"
-          placeholder="{{ option.placeholder }}"
-          class="zan-field__input zan-cell__bd {{ option.right ? 'zan-field__input--right' : '' }}"
-          placeholder-class="zan-field__placeholder"
-          data-component-id="{{ componentId || '' }}"
-        />
+  <view wx:if="{{showTitle}}" class="card-title">开始学习之旅</view>
+  <form bindsubmit="formSubmit">
+    <view class="container" >
+      <view wx:for="{{options}}" wx:for-item="option" wx:key="name">
+        <view class="zan-cell zan-field {{ option.error ? 'zan-field--error' : '' }} {{ option.mode === 'wrapped' ? 'zan-field--wrapped' : '' }}">
+          <view wx:if="{{ option.title }}" class="zan-cell__hd zan-field__title">{{ option.title }}</view>
+          <textarea wx:if="{{ option.type === 'textarea' }}" auto-height name="{{ option.name || componentId || '' }}" value="{{ option.value }}" placeholder="{{ option.placeholder }}" class="zan-field__input zan-cell__bd {{ option.right ? 'zan-field__input--right' : '' }}"
+            placeholder-class="zan-field__placeholder" data-component-id="{{ componentId || '' }}" />
+          <input wx:else type="{{ option.inputType || 'text' }}" name="{{ option.name || componentId || '' }}" value="{{ option.value }}" placeholder="{{ option.placeholder }}" class="zan-field__input zan-cell__bd {{ option.right ? 'zan-field__input--right' : '' }}"
+            placeholder-class="zan-field__placeholder" data-component-id="{{ componentId || '' }}" />
+        </view>
+      </view>
     </view>
-  </view>
-</view>
-<view class='submit-btn'>
-  <button class="zan-btn zan-btn--primary submit">提交</button>
-</view>
+    <view class='submit-btn'>
+      <button class="zan-btn zan-btn--primary submit" formType="submit">提交</button>
+    </view>
+  </form>
 </view>
 </template>
 
 <script>
 import wepy from 'wepy';
+import tip from '@/utils/tip';
+import api from '@/api/api';
 
 export default class Study extends wepy.component {
   props = {
     options: {
       type: Array,
-      default: [
-        {
+      default: [{
           // error: true,
           name: 'name',
           value: '',
@@ -74,41 +57,24 @@ export default class Study extends wepy.component {
       ]
     },
     componentId: String,
-    showTitle: { type: Boolean, default: true }
+    showTitle: {
+      type: Boolean,
+      default: true
+    }
   };
   onLoad = () => {
     console.log(this)
-  };
+  }
   data = {};
   methods = {
-    clear() {
-      this.options.value = '  ';
-      this.$apply();
-      this.options.value = '';
-      this.$apply();
-    },
-    handleZanFieldChange(event) {
-      event.componentId = this.componentId;
-
-      console.info('[zan:field:change]', event);
-
-      return this.$emit('zanFieldChange', event);
-    },
-
-    handleZanFieldFocus(event) {
-      event.componentId = this.componentId;
-
-      console.info('[zan:field:focus]', event);
-
-      return this.$emit('zanFieldFocus', event);
-    },
-
-    handleZanFieldBlur(event) {
-      event.componentId = this.componentId;
-
-      console.info('[zan:field:blur]', event);
-
-      return this.$emit('zanFieldBlur', event);
+    async formSubmit(e) {
+      const { value } = e.detail;
+      await api.submitForm({
+        method: "POST",
+        query: value
+      })
+      await tip.confirm('咨询资料提交成功，售后会有专人跟您联系！')
+      wepy.switchTab({ url: '/pages/index' });
     }
   };
 }
@@ -132,7 +98,7 @@ export default class Study extends wepy.component {
   }
 }
 
-.zan-field--wrapped + .zan-field--wrapped {
+.zan-field--wrapped+.zan-field--wrapped {
   margin-top: 10px;
 }
 

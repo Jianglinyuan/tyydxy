@@ -26,7 +26,7 @@
       mode="aspectFit"
       src="../../static/png/home/xinwen.png"
     /><text>新闻中心</text> </view>
-  <view class="menu-list-item">
+  <view class="menu-list-item" @tap.stop="goToShop">
     <image
       mode="aspectFit"
       src="../../static/png/home/shangcheng.png"
@@ -75,6 +75,12 @@ export default class MenuList extends wepy.component {
     goToStudentList(){
      wepy.navigateTo({
         url: "/pages/studentlist"
+      })   
+    },
+
+    goToShop(){
+     wepy.navigateTo({
+        url: "/pages/shop"
       })   
     }
   }

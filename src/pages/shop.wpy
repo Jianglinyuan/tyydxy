@@ -1,8 +1,51 @@
 <style lang="scss">
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  .shop-container {
+    background: white;
+    width: 45%;
+    padding: 5rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15rpx;
+    box-shadow: 0 6px 4px 0 rgba(0,0,0,.06);
+    .shop-item-img {
+      width: 100%;
+    }
+    .shop-item-title {
+      height: 80rpx;
+      word-break: normal;
+      text-align: center;
+    }
+    .shop-item-price {
+      margin-top: 10rpx;
+      text {
+        color: #D3AA7B;
+        font-weight: bolder;
+      }
+    }
+    .shop-item-submit {
+      margin-top: 20rpx;
+      height: 60rpx;
+      line-height: 60rpx;
+      font-size: 12px;
+      margin-bottom: 15rpx;
+    }
+  }
+}
 </style>
 
 <template>
 <view class="container">
+  <view class="shop-container" wx:for="{{books}}" wx:key="id">
+    <image class="shop-item-img" src="{{item.pic}}"></image>
+    <view class="shop-item-title">{{item.title}}</view>
+    <view class="shop-item-price">研值：<text>{{item.price}}</text></view>
+    <button class="shop-item-submit weui-btn" data-id="{{item.id}}" @tap.stop="submit">点击兑换</button>
+  </view>
 </view>
 </template>
 
@@ -10,22 +53,37 @@
 import wepy from 'wepy';
 
 export default class Yanzhi extends wepy.page {
+
+  data = {
+    books: []
+  };
+
   config = {
     navigationBarTitleText: '研值商城',
     usingComponents: {}
   };
-  components = {
-  };
+  components = {};
 
-  data = {};
-
-  methods = {};
-
-  events = {
-
-  };
-
-  onShow() {
+  async onLoad() {
+    const {
+      data
+    } = await wepy.request(wepy.$appConfig.baseUrl + '/ty-api/getBooks');
+    this.books = data;
+    this.$apply();
   }
+
+  methods = {
+    submit(e) {
+      console.log(e);
+      const id = e.target.dataset.id;
+      wepy.navigateTo({
+        url: '/pages/shopconfirm?id=' + id
+      });
+    }
+  };
+
+  events = {};
+
+  onShow() {}
 }
 </script>

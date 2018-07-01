@@ -4,7 +4,7 @@ import {
 import wepy from 'wepy';
 
 let env = "-test" //-dev 或者 -test
-const apiTy = wepy.$appConfig.baseUrl;
+const apiTy = wepy.$appConfig.baseUrl + '/ty-api';
 console.log('baseUrl: ', apiTy);
 
 /**
@@ -162,6 +162,11 @@ const likeAnli = (params) => wxRequest(params, apiTy + '/likeAnli');
 // 老师、学生列表
 const getTeahcer = (params) => wxRequest(params, apiTy + '/getTeachers');
 const getStudent = (params) => wxRequest(params, apiTy + '/getStudents');
+const getBooks = (params) => wxRequest(params, apiTy + '/getBooks');
+const buyBook = (params) => wxRequest(params, apiTy + '/buyBook');
+const getUser = (params) => wxRequest(params, apiTy + '/getUser');
+const getBuyRecored = (params) => wxRequest(params, apiTy + '/getBuyRecored');
+const submitForm = (params) => wxRequest(params, apiTy + '/submitForm');
 
 export default {
   hostGoodsList,
@@ -220,5 +225,10 @@ export default {
   likeAnli,
   getTeahcer,
   getStudent,
-  getBinglisList
+  getBinglisList,
+  getBooks,
+  getUser,
+  buyBook,
+  getBuyRecored,
+  submitForm
 }

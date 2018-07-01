@@ -51,12 +51,14 @@ export default class MyMenuList extends wepy.component {
       },
       {
         title: "研值商城",
-        icon: "../../static/png/my/shangcheng.png"
+        icon: "../../static/png/my/shangcheng.png",
+        bindtap: "goToShop"
       },
 
       {
         title: "购买记录",
-        icon: "../../static/png/my/jilu.png"
+        icon: "../../static/png/my/jilu.png",
+        bindtap: "goToRecored"
       },
 
       {
@@ -97,7 +99,13 @@ export default class MyMenuList extends wepy.component {
 
         } //仅为示例，并非真实的电话号码
       })
-    }
+    },
+    goToRecored(){
+      wepy.navigateTo({ url: '/pages/buyrecored' });
+    },
+    goToShop(){
+      wepy.navigateTo({ url: '/pages/shop' });
+    }, 
   }
 }
 </script>

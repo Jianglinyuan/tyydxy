@@ -32,7 +32,7 @@ export default class Newsdetail extends wepy.page {
       author: '思衍',
       time: '2018年6月13日 18:50:23'
     },
-    tpye: 'news'
+    tpye: 'news',
   };
 
   config = {
@@ -70,8 +70,7 @@ export default class Newsdetail extends wepy.page {
       }
     });
     this.renderData = data;
-    this.$apply();
-    WxParse.wxParse('detailInfo', 'html', data.content, this);
+    WxParse.wxParse('detailInfo', 'html', this.renderData.content, this);
     this.$apply();
   }
 }

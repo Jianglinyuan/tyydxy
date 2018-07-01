@@ -3,7 +3,7 @@
 <view class="card">
   <view class="card-title">学员最新动态</view>
   <view class="news-list">
-    <view class="news-list-item" wx:for="{{news}}" wx:key="id">
+    <view class="news-list-item" @tap.stop="gotoDetail" wx:for="{{news}}" wx:key="id"  data-id="{{item.id}}">
       <image src="{{item.price}}" />
       <view class="news-list-title">{{item.title}}</view>
     </view>
@@ -17,6 +17,20 @@ export default class NewsList extends wepy.component {
   data = {
     news: []
   };
+
+  methods={
+   gotoDetail(e) {
+      const {
+        currentTarget: {
+          dataset
+        }
+      } = e;
+      const id = dataset.id;
+      wepy.navigateTo({
+        url: "/pages/newsdetail?id=" + id
+      })
+    }
+  }
 
   async onLoad() {
     const {

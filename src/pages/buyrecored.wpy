@@ -1,0 +1,113 @@
+<style lang="scss">
+.container{
+}
+.buy-recored-container{
+  display: flex;
+  flex-direction: column;
+  margin: 20rpx;
+  background: white;
+
+  .buy-recored-time{
+    padding-left: 20rpx;
+    border-bottom: 1px solid #BDC8D4;
+    height: 80rpx;
+    line-height: 80rpx;
+  }
+
+  .buy-user-info{
+    display: flex;
+    flex-direction: column;
+    margin: 20rpx 0rpx 20rpx 20rpx;
+  }
+
+  .buy-recored-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #BDC8D4;
+    margin: 20rpx 0rpx 20rpx 0rpx;
+
+    .buy-recored-imge{
+      height: 200rpx;
+      width: 200rpx;
+    }
+
+    .buy-recored-info-con{
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      .buy-recored-price{
+        text-align: right;  
+        margin-right: 40rpx;
+        margin-top: 40rpx;
+
+        text {
+          color: #D3AA7B;
+          font-size: 16px;
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+}
+</style>
+
+<template>
+<view class="container">
+  <view class="buy-recored-container" wx:for="{{recored}}" wx:key="id">
+    <view class="buy-recored-time">{{item.created_at}}</view>
+    <view class="buy-recored-info">
+      <image class="buy-recored-imge" src="{{item.pic}}" />
+      <view class="buy-recored-info-con">
+        <view class="buy-recored-title">{{item.title}}</view>
+        <view class="buy-recored-price">研值：<text>{{item.total}}</text></view>
+      </view>
+    </view>
+    <view class="buy-user-info">
+      <view class="buy-user-name">姓名：{{item.name}}</view>
+      <view class="buy-user-phone">电话：{{item.phone}}</view>
+      <view class="buy-user-address">收件地址：{{item.address}}</view>
+    </view>
+  </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import api from '@/api/api';
+import tip from '@/utils/tip';
+import {
+  SYSTEM_INFO,
+  USER_SPECICAL_INFO,
+  ADDRESS_ID
+} from '@/utils/constant';
+
+export default class Buyrecored extends wepy.page {
+  config = {
+    navigationBarTitleText: '购买记录',
+    usingComponents: {}
+  };
+  components = {};
+
+  data = {
+    recored: []
+  }
+
+  async onLoad() {
+    const userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
+    const openId = userSpecialInfo.openid;
+    const {
+      data
+    } = await api.getBuyRecored({
+      query: {
+        openId
+      }
+    })
+    console.log(data.data);
+    this.recored = data.data;
+    this.$apply();
+  }
+
+}
+</script>

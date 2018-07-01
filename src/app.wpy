@@ -34,7 +34,9 @@ export default class extends wepy.app {
       'pages/studentdetail',
       'pages/addarticle',
       'pages/orderconfirm',
-      'pages/shop'
+      'pages/shopconfirm',
+      'pages/shop',
+      'pages/buyrecored',
     ],
     window: {
       backgroundColor: '#FFFFFF',
