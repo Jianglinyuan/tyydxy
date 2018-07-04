@@ -1,25 +1,30 @@
 <template>
-    <tab wx:if="{{showTab == '1'}}" :tabList.sync="tablelist" @currentTab.user="switchTab"></tab>
-    <view wx:for="{{renderData}}" @tap.stop="goToDetail" wx:key="{{id}}" data-id="{{item.id}}" class="item-list-wrapper">
-        <view class="item-list-pic">
-            <image src="{{item.pic}}" mode="scaleToFill" />
-        </view>
-        <view class="item-list-infoWrapper">
-            <view class="item-list-title">{{item.title}}</view>
-            <view class="item-list-intro">
-                <view class="item-list-author">{{item.author || "天源运动健身学院"}}</view>
-                <view @tap.stop='userModify' data-id="{{item.id}}" wx:if="{{item.openId === openId}}" class="item-list-modify">修改</view>
-                <view class="item-list-time">{{item.updated_at}}</view>
-            </view>
-        </view>
+<tab wx:if="{{showTab == '1'}}" :tabList.sync="tablelist" @currentTab.user="switchTab">
+</tab>
+<view wx:for="{{renderData}}" @tap.stop="goToDetail" wx:key="{{id}}" data-id="{{item.id}}" class="item-list-wrapper">
+  <view class="item-list-pic">
+    <image src="{{item.pic}}" mode="scaleToFill" />
+  </view>
+  <view class="item-list-infoWrapper">
+    <view class="item-list-title">{{item.title}}</view>
+    <view class="item-list-intro">
+      <view class="item-list-author">{{item.author || "天源运动健身学院"}}</view>
+      <view @tap.stop='userModify' data-id="{{item.id}}" wx:if="{{item.openId === openId}}" class="item-list-modify">修改</view>
+      <view class="item-list-time">{{item.updated_at}}</view>
     </view>
+  </view>
+</view>
 </template>
+
 <script>
 import wepy from 'wepy';
 import tip from '@/utils/tip';
 import api from '@/api/api';
 import Tab from '@/components/tab';
-import { SYSTEM_INFO, USER_SPECICAL_INFO } from '@/utils/constant';
+import {
+  SYSTEM_INFO,
+  USER_SPECICAL_INFO
+} from '@/utils/constant';
 
 export default class Itemlist extends wepy.component {
   props = {
@@ -33,12 +38,26 @@ export default class Itemlist extends wepy.component {
     },
     showTab: {
       type: String,
-      default: '1' 
+      default: '1'
+    },
+    isMy: {
+      type: String,
+      default: ''
+    },
+    isShoucang: {
+      type: String,
+      default: ''
     }
   };
 
   data = {
-    tablelist: [{ index: 1, name: '案例' }, { index: 2, name: '病例' }],
+    tablelist: [{
+      index: 1,
+      name: '案例'
+    }, {
+      index: 2,
+      name: '病例'
+    }],
     openId: ""
   };
 
@@ -50,7 +69,23 @@ export default class Itemlist extends wepy.component {
     const type = this.type;
     let userSpecialInfo = wepy.getStorageSync(USER_SPECICAL_INFO) || {};
     let openId = userSpecialInfo.openid;
-    const { data } = await api[`get${type}List`]();
+    const query = {};
+    if (this.isMy == 1) {
+      query.user = openId;
+    }
+
+    if (this.isShoucang == 1) {
+      query.isShoucang = 1;
+      query.user = openId;
+    }
+
+    this.query = query;
+
+    const {
+      data
+    } = await api[`get${type}List`]({
+      query
+    });
     this.renderData = data;
     this.openId = openId;
     this.$apply();
@@ -58,7 +93,11 @@ export default class Itemlist extends wepy.component {
 
   methods = {
     goToDetail(e) {
-      const { currentTarget: { dataset } } = e;
+      const {
+        currentTarget: {
+          dataset
+        }
+      } = e;
       const id = dataset.id;
       wepy.navigateTo({
         url: '/pages/' + this.type.toLowerCase() + 'detail?id=' + id
@@ -66,13 +105,22 @@ export default class Itemlist extends wepy.component {
     },
 
     async switchTab(value) {
+      const query = this.query;
       if (value == 0) {
-        const { data } = await api[`getAnliList`]();
+        const {
+          data
+        } = await api[`getAnliList`]({
+          query
+        });
         this.renderData = data;
         this.type = 'Anli';
         this.$apply();
       } else {
-        const { data } = await api[`getBinglisList`]();
+        const {
+          data
+        } = await api[`getBinglisList`]({
+          query
+        });
         this.renderData = data;
         this.type = 'Bingli';
         this.$apply();
@@ -80,7 +128,11 @@ export default class Itemlist extends wepy.component {
     },
 
     userModify(e) {
-      const { currentTarget: { dataset } } = e;
+      const {
+        currentTarget: {
+          dataset
+        }
+      } = e;
       const id = dataset.id;
       wepy.navigateTo({
         url: `/pages/addarticle?id=${id}&type=${this.type}&openId=${this.openId}&isnew=0`
@@ -89,28 +141,25 @@ export default class Itemlist extends wepy.component {
   };
 }
 </script>
+
 <style lang="scss">
 .container {
   background: white;
-
   .item-list-wrapper {
     display: flex;
     height: 200rpx;
     align-items: center;
     border-bottom: 1px solid #e6e8eb;
-
     .item-list-pic {
       height: 150rpx;
       width: 250rpx;
       position: relative;
       margin-left: 15rpx;
-
       image {
         width: 100%;
         height: 100%;
       }
     }
-
     .item-list-infoWrapper {
       flex: 1;
       margin-left: 15rpx;
@@ -118,27 +167,22 @@ export default class Itemlist extends wepy.component {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-
       .item-list-title {
         font-weight: 600;
         margin-bottom: 0.25rem;
         color: #3d464d;
       }
-
       .item-list-intro {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
         .item-list-author {
           font-size: 20rpx;
         }
-
         .item-list-modify {
           font-size: 20rpx;
           color: #dba874;
         }
-
         .item-list-time {
           font-size: 20rpx;
           margin-right: 15rpx;

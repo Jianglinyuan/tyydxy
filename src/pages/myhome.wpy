@@ -21,7 +21,7 @@
       <view class="home-func-item-title">我的证书</view>
       <view class="home-func-item-number">{{userInfo.zhengshu || 0}}</view>
     </view>
-    <view class="home-func-item">
+    <view class="home-func-item" @tap="goToMy">
       <view class="home-func-item-title">案例发布</view>
       <view class="home-func-item-number">{{userInfo.anli || 0}}</view>
     </view>
@@ -122,7 +122,10 @@ export default class Myhome extends wepy.page {
       wepy.navigateTo({
         url: "/pages/classs"
       })
-    }
+    },
+    goToMy(){
+      wepy.navigateTo({ url: '/pages/myanli' });
+    }, 
   };
   computed = {
 

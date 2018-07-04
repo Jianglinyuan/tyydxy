@@ -20,6 +20,8 @@ export default class extends wepy.app {
       'pages/index',
       'pages/phone',
       'pages/myhome',
+      'pages/myanli',
+      'pages/mysc',
       'pages/search',
       'pages/onlineinfo',
       'pages/coursedetail',

@@ -1,0 +1,24 @@
+<style lang="scss">
+</style>
+
+<template>
+<view class="container">
+  <itemlist type="Anli" isMy="1"></itemlist>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Itemlist from '@/components/item_list';
+
+export default class Myanli extends wepy.page {
+  config = {
+    navigationBarTitleText: '我的案例',
+    usingComponents: {}
+  };
+  components = {
+    itemlist: Itemlist,
+  };
+  
+}
+</script>
