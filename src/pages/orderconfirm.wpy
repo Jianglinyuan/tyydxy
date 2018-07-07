@@ -4,11 +4,11 @@
   <view class="order_info">
     <view class="block">
       <view class="left">课程名称</view>
-      <view class="right">15天腹肌训练的密码</view>
+      <view class="right">{{class.title}}</view>
     </view>
     <view class="block">
       <view class="left ">上课时间</view>
-      <view class="right">周一到周五 18:00 每天一节</view>
+      <view class="right">{{class.time}}</view>
     </view>
     <view class="block">
       <view class="left important">上课人姓名</view>
@@ -42,7 +42,7 @@
           class="right price"
           wx:if="{{youhuijuan>0}}"
         >商品金额:￥{{totalPrice}}-积分:￥{{youhuijuan}}</view>
-      <view class="right price">应付:￥{{actualPrice || 2000}}</view>
+      <view class="right price">应付:￥{{class.price || 2000}}</view>
     </view>
   </view>
 
@@ -72,7 +72,21 @@ export default class ComfireOrder extends wepy.page {
   }
   components = {}
 
-  data = {}
+
+  async onLoad(option) {
+    const {classId} = option;
+    const { data } = await api.classDetail({
+      query:{
+        id: classId
+      }
+    })
+    this.class = data;
+    this.$apply();
+  }
+
+  data = {
+    class: {}
+  }
 
   methods = {
     bindNameInput(e) {

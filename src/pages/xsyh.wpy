@@ -1,0 +1,47 @@
+<style lang="scss">
+.container {
+  height: 100%;
+  background: white;
+}
+</style>
+
+<template>
+<view class="container">
+  <web-view src="https://siyan.tech/ty/xsyh/index.html"></web-view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class Xsyh extends wepy.page {
+  config = {
+    navigationBarTitleText: '限时优惠',
+    usingComponents: {}
+  };
+  components = {};
+
+  data = {
+    id: 0,
+    isnew: 1,
+    openId: '',
+    type: 'anli',
+    url: ''
+  };
+
+  onLoad(option) {
+    const {id ,isnew ,openId, type} = option;
+    this.id = id;
+    this.isnew = isnew;
+    this.openId = openId;
+    this.type = type.toLowerCase();
+    this.url = wepy.$appConfig.baseUrl + `/ty/index.html?id=${this.id}&type=${this.type}&openId=${this.openId}&isnew=${this.isnew}`
+    this.$apply();
+  }
+
+
+  methods = {};
+
+  events = {};
+}
+</script>
